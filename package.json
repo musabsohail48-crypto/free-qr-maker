@@ -1,0 +1,7 @@
+{
+  "name":"qrforge-complete",
+  "version":"1.0.0",
+  "private":true,
+  "scripts":{"start":"node server.js"},
+  "dependencies":{"express":"^4.21.2","better-sqlite3":"^11.8.1","bcryptjs":"^2.4.3","jsonwebtoken":"^9.0.2","qrcode":"^1.5.4"}
+}
