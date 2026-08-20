@@ -55,3 +55,289 @@ body.dark{background:#0c0f18;color:#f5f6fa}body.dark header,body.dark .panel,bod
     height: 230px;
   }
 }
+/* ===== QRFORGE PREMIUM UI UPGRADE ===== */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(99, 102, 241, 0.10), transparent 30%),
+    radial-gradient(circle at 90% 20%, rgba(59, 130, 246, 0.12), transparent 30%),
+    linear-gradient(180deg, #f8faff 0%, #ffffff 45%, #f7f9ff 100%);
+  color: #111827;
+}
+
+/* NAVBAR */
+header {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(99, 102, 241, 0.10);
+  box-shadow: 0 8px 30px rgba(30, 41, 59, 0.05);
+}
+
+/* LOGO */
+.logo {
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 560px;
+  padding: 70px 0;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: rgba(99, 102, 241, 0.10);
+  filter: blur(80px);
+  top: -180px;
+  left: -180px;
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.10);
+  filter: blur(80px);
+  right: -150px;
+  bottom: -150px;
+  pointer-events: none;
+}
+
+/* HERO TEXT */
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-copy h1 {
+  font-size: clamp(44px, 6vw, 76px);
+  line-height: 0.98;
+  letter-spacing: -3px;
+  font-weight: 800;
+  margin: 18px 0;
+}
+
+.hero-copy h1 b {
+  background: linear-gradient(90deg, #2563eb, #6366f1, #7c3aed);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-copy p {
+  max-width: 620px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: #64748b;
+}
+
+/* EYEBROW */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.15);
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+/* QR AREA */
+.hero-visual {
+  position: relative;
+  z-index: 2;
+}
+
+.qr-card {
+  position: relative;
+  width: 380px;
+  height: 380px;
+  border-radius: 36px;
+
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 30px 80px rgba(37, 99, 235, 0.16),
+    0 10px 30px rgba(15, 23, 42, 0.08);
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.qr-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 40px 90px rgba(37, 99, 235, 0.20),
+    0 15px 35px rgba(15, 23, 42, 0.10);
+}
+
+.qr-card::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 26px;
+  border: 1px solid rgba(99, 102, 241, 0.10);
+  pointer-events: none;
+}
+
+.qr-card img {
+  width: 270px;
+  height: 270px;
+  padding: 14px;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.08);
+}
+
+/* PILLS */
+.pills {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 10px auto 50px;
+}
+
+.pills span {
+  padding: 10px 16px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(99, 102, 241, 0.10);
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+}
+
+/* ALL SECTIONS */
+.section {
+  position: relative;
+  padding: 90px 0;
+}
+
+.section h2 {
+  font-size: clamp(32px, 4vw, 50px);
+  letter-spacing: -2px;
+  font-weight: 800;
+}
+
+/* CARDS */
+.card,
+.panel,
+.custom {
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(99, 102, 241, 0.10);
+  border-radius: 24px;
+  box-shadow: 0 18px 50px rgba(15, 23, 42, 0.07);
+}
+
+/* INPUTS */
+input,
+textarea,
+select {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  transition: 0.25s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.10);
+}
+
+/* BUTTONS */
+button,
+.btn {
+  border-radius: 12px;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+button:hover,
+.btn:hover {
+  transform: translateY(-2px);
+}
+
+/* ADVERTISEMENT */
+.ad {
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    rgba(248, 250, 252, 0.9),
+    rgba(241, 245, 249, 0.9)
+  );
+  border: 1px dashed #cbd5e1;
+  color: #94a3b8;
+}
+
+/* MOBILE */
+@media (max-width: 800px) {
+
+  .hero {
+    min-height: auto;
+    padding: 55px 20px;
+  }
+
+  .hero-copy {
+    text-align: center;
+  }
+
+  .hero-copy h1 {
+    font-size: 46px;
+    letter-spacing: -2px;
+  }
+
+  .hero-copy p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .hero-visual {
+    margin-top: 45px;
+  }
+
+  .qr-card {
+    width: 310px;
+    height: 310px;
+    border-radius: 28px;
+  }
+
+  .qr-card img {
+    width: 220px;
+    height: 220px;
+  }
+
+  .section {
+    padding: 60px 20px;
+  }
+}
+
