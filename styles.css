@@ -340,4 +340,233 @@ button:hover,
     padding: 60px 20px;
   }
 }
+/* ===== FINAL QRFORGE PREMIUM LOOK ===== */
+
+body {
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(99, 102, 241, 0.12), transparent 28%),
+    radial-gradient(circle at 85% 35%, rgba(14, 165, 233, 0.12), transparent 30%),
+    linear-gradient(135deg, #f8faff 0%, #eef4ff 50%, #ffffff 100%);
+}
+
+/* Keep website content away from screen edges */
+main,
+header > div,
+footer > div {
+  width: min(1180px, calc(100% - 48px));
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* PREMIUM HERO */
+.hero {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto;
+  min-height: 560px;
+  padding: 80px 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 400px;
+  align-items: center;
+  gap: 70px;
+  position: relative;
+}
+
+/* Soft background glow */
+.hero::before {
+  content: "";
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  left: -180px;
+  top: 40px;
+  border-radius: 50%;
+  background: rgba(59, 130, 246, 0.12);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  right: -130px;
+  bottom: -100px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.12);
+  filter: blur(90px);
+  pointer-events: none;
+}
+
+/* LEFT CONTENT */
+.hero-copy {
+  position: relative;
+  z-index: 2;
+  padding-left: 10px;
+}
+
+.hero-copy h1 {
+  font-size: clamp(42px, 5.5vw, 72px);
+  line-height: 1;
+  letter-spacing: -3px;
+  margin: 20px 0;
+  color: #111827;
+}
+
+.hero-copy h1 b {
+  background: linear-gradient(
+    90deg,
+    #2563eb 0%,
+    #4f46e5 45%,
+    #7c3aed 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-copy p {
+  max-width: 650px;
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1.75;
+}
+
+/* EYEBROW */
+.eyebrow {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 99, 235, 0.10),
+    rgba(124, 58, 237, 0.10)
+  );
+  border: 1px solid rgba(99, 102, 241, 0.18);
+  color: #4f46e5;
+  padding: 9px 16px;
+  border-radius: 50px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  font-size: 12px;
+  box-shadow: 0 8px 25px rgba(79, 70, 229, 0.08);
+}
+
+/* RIGHT QR */
+.hero-visual {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.qr-card {
+  width: 370px;
+  height: 370px;
+  border-radius: 36px;
+
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+
+  border: 1px solid rgba(255, 255, 255, 0.9);
+
+  box-shadow:
+    0 30px 80px rgba(37, 99, 235, 0.16),
+    0 10px 35px rgba(15, 23, 42, 0.08);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: all 0.35s ease;
+}
+
+.qr-card:hover {
+  transform: translateY(-10px) scale(1.015);
+  box-shadow:
+    0 40px 100px rgba(37, 99, 235, 0.22),
+    0 15px 40px rgba(15, 23, 42, 0.10);
+}
+
+.qr-card img {
+  width: 270px;
+  height: 270px;
+  padding: 14px;
+  background: white;
+  border-radius: 22px;
+  box-shadow: 0 15px 35px rgba(15, 23, 42, 0.10);
+}
+
+/* FEATURE PILLS */
+.pills {
+  width: min(1180px, calc(100% - 48px));
+  margin: 0 auto 60px;
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.pills span {
+  padding: 11px 18px;
+  border-radius: 50px;
+  background: rgba(255, 255, 255, 0.78);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  color: #475569;
+  font-size: 13px;
+  font-weight: 650;
+  box-shadow: 0 8px 25px rgba(15, 23, 42, 0.05);
+  transition: all 0.25s ease;
+}
+
+.pills span:hover {
+  transform: translateY(-3px);
+  border-color: rgba(99, 102, 241, 0.25);
+  box-shadow: 0 12px 30px rgba(79, 70, 229, 0.10);
+}
+
+/* MOBILE */
+@media (max-width: 850px) {
+
+  main,
+  header > div,
+  footer > div,
+  .hero,
+  .pills {
+    width: calc(100% - 32px);
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 55px 0;
+    gap: 45px;
+    text-align: center;
+  }
+
+  .hero-copy {
+    padding-left: 0;
+  }
+
+  .hero-copy h1 {
+    font-size: 46px;
+    letter-spacing: -2px;
+  }
+
+  .hero-copy p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .qr-card {
+    width: 310px;
+    height: 310px;
+  }
+
+  .qr-card img {
+    width: 220px;
+    height: 220px;
+  }
+}
 
