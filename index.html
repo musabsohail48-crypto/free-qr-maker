@@ -99,12 +99,29 @@ header{
   filter:blur(5px)
 }
 .hero-qr{
-  position:relative;width:370px;height:370px;border-radius:24px;
-  background:#fff;display:grid;place-items:center;
-  transform:rotate(-8deg);
-  box-shadow:0 0 90px rgba(112,48,255,.28),0 30px 80px rgba(0,0,0,.35);
+  position:relative;width:370px;height:370px;border-radius:28px;
+  background:linear-gradient(145deg,#ffffff 0%,#f5f1ff 58%,#e8ddff 100%);
+  display:grid;place-items:center;
+  transform:perspective(900px) rotateX(9deg) rotateY(-16deg) rotateZ(-7deg);
+  transform-style:preserve-3d;
+  box-shadow:22px 28px 0 rgba(55,25,135,.30),0 0 90px rgba(112,48,255,.30),0 38px 85px rgba(0,0,0,.48);
+  animation:qrFloat 4.5s ease-in-out infinite;
 }
-.hero-qr canvas{max-width:86%;max-height:86%}
+.hero-qr:before{
+  content:"";position:absolute;inset:11px;border-radius:20px;
+  border:1px solid rgba(112,48,255,.12);
+  box-shadow:inset 0 0 35px rgba(124,60,255,.08);
+}
+.hero-qr:after{
+  content:"";position:absolute;left:18px;right:18px;bottom:-24px;height:26px;
+  border-radius:50%;background:rgba(0,0,0,.42);filter:blur(16px);
+  transform:translateZ(-30px) rotateX(65deg);
+}
+.hero-qr canvas{max-width:78%;max-height:78%;position:relative;z-index:2;border-radius:8px}
+@keyframes qrFloat{
+  0%,100%{transform:perspective(900px) rotateX(9deg) rotateY(-16deg) rotateZ(-7deg) translateY(0)}
+  50%{transform:perspective(900px) rotateX(11deg) rotateY(-12deg) rotateZ(-5deg) translateY(-10px)}
+}
 .float-icon{position:absolute;width:52px;height:52px;border-radius:13px;display:grid;place-items:center;background:#111733;border:1px solid var(--line);box-shadow:var(--shadow);font-size:24px}
 .f1{top:12%;right:5%}.f2{left:5%;top:27%}.f3{right:1%;bottom:25%}.f4{left:14%;bottom:10%}
 
@@ -173,6 +190,11 @@ input[type=range]{padding:0;accent-color:#713aff}
 .scan-btn{width:100%;margin-top:8px}
 .download-box{margin-top:14px}.download-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.download-btn{padding:10px 5px;font-size:11px}
 .ad-space{height:90px;margin-top:14px;border:1px dashed #413261;border-radius:10px;display:grid;place-items:center;color:#8d68bb;font-size:12px}
+.page-ad{width:100%;min-height:100px;border:1px dashed #413261;border-radius:12px;display:grid;place-items:center;text-align:center;color:#8d68bb;background:rgba(20,12,40,.18);margin:28px 0}
+.page-ad strong{display:block;color:#b27cff;font-size:12px}.page-ad span{font-size:10px;color:#73608e}
+.page{display:none}.page.active{display:block}.page-transition{animation:pageIn .28s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.back-row{display:flex;align-items:center;gap:10px;margin:18px 0}.back-row .btn{padding:8px 13px;font-size:12px}
 
 /* Dashboard */
 .dashboard{display:none}
@@ -228,7 +250,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
       <div>Pro QR <span>Generator</span></div>
     </a>
     <nav class="navlinks">
-      <a href="#features">Features</a><a href="#how">How it Works</a><a href="#generator">Pricing</a><a href="#faq">FAQ</a>
+      <a href="#features">Features</a><a href="#how">How it Works</a><a href="#generator" id="pricingLink">Pricing</a><a href="#faq">FAQ</a>
     </nav>
     <div class="nav-actions">
       <button class="btn ghost" id="signInBtn">Sign In</button>
@@ -239,6 +261,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
 </header>
 
 <main id="top">
+<div class="page active page-transition" id="pageHome">
   <section class="container hero">
     <div>
       <div class="pill">⚡ Fast · Secure · Professional</div>
@@ -262,6 +285,10 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
     </div>
   </section>
 
+  <section class="container">
+    <div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div>
+  </section>
+
   <section class="container section" id="features">
     <div class="section-head"><h2>Powerful Features</h2><p>Everything you need to create professional QR codes</p></div>
     <div class="features">
@@ -283,6 +310,27 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
         <div class="step"><div class="step-num">3</div><h3>Generate & Download</h3><p>Generate your QR code and download it in your preferred format.</p></div>
       </div>
     </div>
+  </section>
+
+
+
+  <section class="container">
+    <div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div>
+  </section>
+
+  <section class="container cta">
+    <div class="cta-box"><div><h3>Ready to create your QR code?</h3><p>Fast, customizable and free to use.</p></div><button class="btn primary" id="ctaBtn">Get Started Free →</button></div>
+  </section>
+</div>
+
+<!-- PAGE 2: QR Studio -->
+<div class="page" id="pageStudio">
+  <section class="container" style="padding-top:22px">
+    <div class="back-row">
+      <button class="btn ghost" id="backHomeBtn">← Back to Home</button>
+      <span style="color:var(--muted);font-size:12px">Pro QR Generator / QR Studio</span>
+    </div>
+    <div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div>
   </section>
 
   <section class="container section" id="generator">
@@ -375,10 +423,12 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
       </div>
     </div>
   </section>
-
-  <section class="container cta">
-    <div class="cta-box"><div><h3>Ready to create your QR code?</h3><p>Fast, customizable and free to use.</p></div><button class="btn primary" id="ctaBtn">Get Started Free →</button></div>
+  <section class="container">
+    <div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div>
   </section>
+</div>
+
+<footer id="faq">
 </main>
 
 <footer id="faq">
@@ -642,16 +692,35 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
     $$("[data-view]").forEach(b=>b.onclick=()=>{const x=getHistory().find(y=>y.id===b.dataset.view);if(x){state.type=x.type;setType(x.type);$("#scanBtn").click()}});
   }
 
-  function showDashboard(){
-    $("#generatorView").classList.add("hidden");$("#dashboard").classList.add("active");renderHistory();
-    $("#generator").scrollIntoView({behavior:"smooth"});
+  function showHome(){
+    $("#pageStudio").classList.remove("active");
+    $("#pageHome").classList.add("active","page-transition");
+    window.scrollTo({top:0,behavior:"smooth"});
+    history.pushState({page:"home"},"","#home");
   }
-  function showGenerator(){ $("#dashboard").classList.remove("active");$("#generatorView").classList.remove("hidden"); $("#generator").scrollIntoView({behavior:"smooth"}); }
+  function showStudio(){
+    $("#pageHome").classList.remove("active");
+    $("#pageStudio").classList.add("active","page-transition");
+    $("#dashboard").classList.remove("active");
+    $("#generatorView").classList.remove("hidden");
+    window.scrollTo({top:0,behavior:"smooth"});
+    history.pushState({page:"studio"},"","#studio");
+  }
+  function showDashboard(){
+    showStudio();
+    $("#generatorView").classList.add("hidden");
+    $("#dashboard").classList.add("active");
+    renderHistory();
+    $("#dashboard").scrollIntoView({behavior:"smooth"});
+  }
 
   // Buttons
-  $("#heroCreate").onclick=showGenerator;$("#startBtn").onclick=showGenerator;$("#ctaBtn").onclick=showGenerator;
+  $("#heroCreate").onclick=showStudio;
+  $("#startBtn").onclick=showStudio;
+  $("#ctaBtn").onclick=showStudio;
+  $("#backHomeBtn").onclick=showHome;
   $("#newQrBtn").onclick=showGenerator;
-  $("#examplesBtn").onclick=()=>{showGenerator();setType("wifi");toast("Example loaded: WiFi QR");};
+  $("#examplesBtn").onclick=()=>{showStudio();setType("wifi");toast("Example loaded: WiFi QR");};
   $("#signInBtn").onclick=()=>toast("This single-file version works without an account. Sign-in can be connected to a backend later.");
   $("#mobileMenuBtn").onclick=()=>document.querySelector(".navlinks").style.display=document.querySelector(".navlinks").style.display==="flex"?"none":"flex";
 
@@ -673,8 +742,16 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
     toast(`Local analytics: ${h.length} saved codes · ${downloads} downloads`);
   };
 
+  $("#pricingLink").onclick=(e)=>{e.preventDefault();showStudio()};
+
+  window.addEventListener("popstate",()=>{
+    if(location.hash==="#studio") showStudio();
+    else showHome();
+  });
+
   // Initialize
   initTypes();optionButtons();bindColors();renderContentForm();updateQR();updateStats();renderHistory();
+  if(location.hash==="#studio") showStudio(); else showHome();
 })();
 </script>
 </body>
