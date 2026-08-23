@@ -24,16 +24,16 @@
             <script type="text/javascript" src="//pl30981401.profitableratecpmnetwork.com/e7/6d/b9/e76db94628554e5cb994792cfd286dcc.js"></script>
         </div>
 
-        <!-- Header / Brand -->
+        <!-- Header / Brand with Main Title & Subtitle -->
         <div class="text-center space-y-2">
             <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 px-3 py-1 rounded-full text-emerald-400 text-xs font-semibold">
                 <i class="fa-solid fa-qrcode"></i>
                 <span>Online QR Generator</span>
             </div>
-            <h1 class="text-3xl md:text-4xl font-black tracking-tight text-white">
-                Create a QR code in <span class="text-emerald-400">seconds!</span>
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white">
+                Pro QR Code <span class="text-emerald-400">Generator</span>
             </h1>
-            <p class="text-xs md:text-sm text-slate-400">Choose what you want to share. URLs, videos, social media, apps, and more!</p>
+            <p class="text-xs md:text-sm text-slate-400 font-medium">Create a QR code in seconds! Choose what you want to share. URLs, videos, social media, apps, and more!</p>
         </div>
 
         <!-- Progress Steps Bar (Clickable as requested) -->
@@ -57,7 +57,7 @@
         <!-- MAIN DYNAMIC CONTAINER -->
         <div class="w-full bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl shadow-2xl overflow-hidden p-6 md:p-8">
             
-            <!-- STEP 1: All QR Types List (Matched Video) -->
+            <!-- STEP 1: All QR Types List -->
             <div id="panel-step-1" class="space-y-3">
                 <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Select QR Type (15+ Options)</p>
                 <div class="space-y-2.5 max-h-[480px] overflow-y-auto pr-1">
@@ -153,7 +153,7 @@
             </div>
         </div>
 
-        <!-- Visual Guide for New Users (How it works) -->
+        <!-- Visual Guide for New Users -->
         <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-4 shadow-xl">
             <h3 class="text-sm font-bold uppercase tracking-wider text-emerald-400">How to create & design QR codes easily</h3>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
@@ -276,7 +276,6 @@
             document.getElementById("qr-image").src = apiUrl;
         }
 
-        /* Safe Mobile Download Handler for 4 Formats */
         async function downloadQR(format) {
             const textData = encodeURIComponent(getQRCodeData());
             const fg = document.getElementById("qr-color").value.replace('#', '');
