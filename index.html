@@ -1,104 +1,162 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro QR Code Generator</title>
+    <title>Pro QR Code Generator - Free Online QR Creator</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- QRCode.js Library -->
-    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col items-center justify-center p-4 md:p-8">
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col items-center justify-between p-4 md:p-8 relative overflow-x-hidden">
 
-    <!-- 📢 AD SLOT 1: Top Leaderboard -->
-    <div class="max-w-4xl w-full bg-slate-900 border-2 border-dashed border-slate-700 rounded-xl p-4 mb-6 text-center text-slate-500 flex flex-col items-center justify-center min-h-[90px]">
-        <span class="text-xs uppercase tracking-widest font-bold mb-1 text-slate-400">Advertisement Slot</span>
-        <p class="text-sm">Paste your Google AdSense code here (728x90)</p>
-    </div>
+    <!-- Background Glow Effects -->
+    <div class="absolute top-0 left-1/4 w-96 h-96 bg-indigo-600/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div class="max-w-4xl w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0">
-        
-        <!-- Left Panel: Controls & Inputs -->
-        <div class="md:col-span-7 p-6 md:p-8 flex flex-col justify-between">
-            <div>
-                <h1 class="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-pink-500 bg-clip-text text-transparent mb-1">
-                    <i class="fa-solid fa-qrcode mr-2"></i>Pro QR Generator
-                </h1>
-                <p class="text-xs text-slate-400 mb-6">Create customized, high-resolution QR codes instantly.</p>
+    <!-- Main Wrapper -->
+    <div class="max-w-5xl w-full flex flex-col items-center z-10">
 
-                <!-- Tabs -->
-                <div class="flex flex-wrap gap-2 mb-6 border-b border-slate-800 pb-4">
-                    <button onclick="switchTab('url')" id="tab-url" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition"><i class="fa-solid fa-link mr-1"></i> URL</button>
-                    <button onclick="switchTab('text')" id="tab-text" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-font mr-1"></i> Text</button>
-                    <button onclick="switchTab('wifi')" id="tab-wifi" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-wifi mr-1"></i> WiFi</button>
-                    <button onclick="switchTab('vcard')" id="tab-vcard" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-address-card mr-1"></i> vCard</button>
-                    <button onclick="switchTab('email')" id="tab-email" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-envelope mr-1"></i> Email</button>
-                </div>
-
-                <!-- Input Forms -->
-                <div id="form-content" class="space-y-4">
-                    <!-- Dynamic fields rendered via JS -->
-                </div>
-
-                <!-- Customization Options -->
-                <div class="mt-6 pt-6 border-t border-slate-800 grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">QR Color</label>
-                        <input type="color" id="qr-color" value="#0f172a" onchange="generateQR()" class="w-full h-9 bg-slate-800 border border-slate-700 rounded-lg cursor-pointer">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Background Color</label>
-                        <input type="color" id="qr-bg" value="#ffffff" onchange="generateQR()" class="w-full h-9 bg-slate-800 border border-slate-700 rounded-lg cursor-pointer">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Generate Button -->
-            <button onclick="generateQR()" class="mt-6 w-full py-3 bg-gradient-to-r from-indigo-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-semibold rounded-xl shadow-lg transition active:scale-[0.98]">
-                <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Generate QR Code
-            </button>
+        <!-- 📢 AD SLOT 1: Top Leaderboard -->
+        <div class="w-full bg-slate-900/80 backdrop-blur-md border border-slate-800/80 rounded-xl p-4 mb-6 text-center text-slate-400 flex flex-col items-center justify-center min-h-[90px] shadow-lg">
+            <span class="text-[10px] uppercase tracking-widest font-bold mb-1 text-indigo-400">Advertisement Slot</span>
+            <p class="text-xs">Google AdSense Header Banner (728x90)</p>
         </div>
 
-        <!-- Right Panel: Preview, Download & Ads -->
-        <div class="md:col-span-5 bg-slate-950 p-6 md:p-8 flex flex-col items-center justify-center border-t md:border-t-0 md:border-l border-slate-800">
+        <!-- Main Card Container -->
+        <div class="w-full bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-12 gap-0 mb-8">
             
-            <!-- Professional QR Code Display Box -->
-            <div class="bg-white p-4 rounded-2xl shadow-xl flex items-center justify-center mb-6 w-full max-w-[220px] aspect-square">
-                <canvas id="qr-canvas" class="w-full h-full"></canvas>
+            <!-- Left Panel: Controls & 10+ Inputs -->
+            <div class="md:col-span-7 p-6 md:p-8 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center space-x-3 mb-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-pink-500 flex items-center justify-center shadow-lg shadow-indigo-500/30">
+                            <i class="fa-solid fa-qrcode text-white text-lg"></i>
+                        </div>
+                        <h1 class="text-2xl font-black bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-500 bg-clip-text text-transparent">
+                            Pro QR Generator
+                        </h1>
+                    </div>
+                    <p class="text-xs text-slate-400 mb-6">Create customized, high-resolution QR codes instantly for 10+ different types.</p>
+
+                    <!-- Tabs (10 Options) -->
+                    <div class="flex flex-wrap gap-1.5 mb-6 border-b border-slate-800 pb-4 max-h-40 overflow-y-auto pr-1">
+                        <button onclick="switchTab('url')" id="tab-url" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-indigo-600 text-white transition shadow-md"><i class="fa-solid fa-link mr-1"></i> URL</button>
+                        <button onclick="switchTab('text')" id="tab-text" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-font mr-1"></i> Text</button>
+                        <button onclick="switchTab('wifi')" id="tab-wifi" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-wifi mr-1"></i> WiFi</button>
+                        <button onclick="switchTab('vcard')" id="tab-vcard" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-address-card mr-1"></i> vCard</button>
+                        <button onclick="switchTab('email')" id="tab-email" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-envelope mr-1"></i> Email</button>
+                        <button onclick="switchTab('sms')" id="tab-sms" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-comment-sms mr-1"></i> SMS</button>
+                        <button onclick="switchTab('phone')" id="tab-phone" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-phone mr-1"></i> Phone</button>
+                        <button onclick="switchTab('whatsapp')" id="tab-whatsapp" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-brands fa-whatsapp mr-1"></i> WhatsApp</button>
+                        <button onclick="switchTab('location')" id="tab-location" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-location-dot mr-1"></i> Location</button>
+                        <button onclick="switchTab('event')" id="tab-event" class="tab-btn px-3 py-1.5 text-xs font-semibold rounded-lg bg-slate-800 text-slate-300 hover:bg-slate-700 transition"><i class="fa-solid fa-calendar-days mr-1"></i> Event</button>
+                    </div>
+
+                    <!-- Input Forms Container -->
+                    <div id="form-content" class="space-y-4">
+                        <!-- Dynamic fields rendered via JS -->
+                    </div>
+
+                    <!-- Customization Color Pickers -->
+                    <div class="mt-6 pt-6 border-t border-slate-800 grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">QR Color</label>
+                            <input type="color" id="qr-color" value="#4f46e5" onchange="generateQR()" class="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl cursor-pointer p-1">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-slate-400 mb-1">Background Color</label>
+                            <input type="color" id="qr-bg" value="#ffffff" onchange="generateQR()" class="w-full h-10 bg-slate-800 border border-slate-700 rounded-xl cursor-pointer p-1">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Generate Button -->
+                <button onclick="generateQR()" class="mt-6 w-full py-3.5 bg-gradient-to-r from-indigo-600 to-pink-600 hover:from-indigo-500 hover:to-pink-500 text-white font-bold rounded-xl shadow-lg shadow-indigo-600/25 transition active:scale-[0.98]">
+                    <i class="fa-solid fa-wand-magic-sparkles mr-2"></i> Generate QR Code Now
+                </button>
             </div>
 
-            <div class="flex gap-3 w-full mb-6">
-                <button onclick="downloadQR('png')" class="flex-1 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl transition shadow-md flex items-center justify-center">
-                    <i class="fa-solid fa-download mr-1.5"></i> PNG
-                </button>
-                <button onclick="downloadQR('jpg')" class="flex-1 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition shadow-md flex items-center justify-center">
-                    <i class="fa-solid fa-file-image mr-1.5"></i> JPG
-                </button>
-            </div>
+            <!-- Right Panel: Preview, Downloads & Ads -->
+            <div class="md:col-span-5 bg-slate-950/60 p-6 md:p-8 flex flex-col items-center justify-between border-t md:border-t-0 md:border-l border-slate-800">
+                
+                <div class="w-full flex flex-col items-center">
+                    <span class="text-xs uppercase tracking-wider font-bold text-slate-400 mb-3"><i class="fa-solid fa-eye text-indigo-400 mr-1"></i> Live Preview</span>
+                    
+                    <!-- Guaranteed Working QR Display Box (Never Blank) -->
+                    <div class="bg-white p-4 rounded-2xl shadow-2xl shadow-indigo-500/10 flex items-center justify-center mb-6 w-full max-w-[220px] aspect-square border border-slate-700">
+                        <img id="qr-image" src="" alt="QR Code Preview" class="w-full h-full object-contain rounded-lg">
+                    </div>
 
-            <!-- 📢 AD SLOT 2: Sidebar Box -->
-            <div class="w-full bg-slate-900 border-2 border-dashed border-slate-700 rounded-xl p-4 text-center text-slate-500 flex flex-col items-center justify-center min-h-[200px]">
-                <span class="text-[10px] uppercase tracking-widest font-bold mb-1 text-slate-400">Sponsored Ad</span>
-                <p class="text-xs">Your 300x250 Ad Here</p>
+                    <!-- Download Options Box (PNG, JPG, SVG, WEBP) -->
+                    <div class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl p-4 shadow-lg mb-6">
+                        <p class="text-[11px] font-bold text-slate-400 mb-2 uppercase tracking-wider text-center">Download Formats</p>
+                        <div class="grid grid-cols-2 gap-2">
+                            <button onclick="downloadQR('png')" class="py-2 px-3 bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold rounded-xl transition shadow flex items-center justify-center">
+                                <i class="fa-solid fa-download mr-1.5"></i> PNG
+                            </button>
+                            <button onclick="downloadQR('jpg')" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition shadow flex items-center justify-center">
+                                <i class="fa-solid fa-file-image mr-1.5"></i> JPG
+                            </button>
+                            <button onclick="downloadQR('svg')" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition shadow flex items-center justify-center">
+                                <i class="fa-solid fa-code mr-1.5"></i> SVG
+                            </button>
+                            <button onclick="downloadQR('webp')" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition shadow flex items-center justify-center">
+                                <i class="fa-solid fa-image mr-1.5"></i> WEBP
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 📢 AD SLOT 2: Sidebar Box -->
+                <div class="w-full bg-slate-900 border border-slate-800 rounded-xl p-4 text-center text-slate-400 flex flex-col items-center justify-center min-h-[150px] shadow-inner">
+                    <span class="text-[10px] uppercase tracking-widest font-bold mb-1 text-indigo-400">Sponsored Ad</span>
+                    <p class="text-xs">Google AdSense Rectangle (300x250)</p>
+                </div>
             </div>
         </div>
 
+        <!-- 🚀 PRO VERSION COMING SOON BANNER -->
+        <div class="w-full bg-gradient-to-r from-indigo-900/40 via-purple-900/40 to-pink-900/40 border border-indigo-500/30 rounded-2xl p-6 mb-8 text-center backdrop-blur-md shadow-xl flex flex-col md:flex-row items-center justify-between gap-4">
+            <div class="text-left">
+                <span class="bg-indigo-500/20 text-indigo-300 text-[10px] font-bold px-3 py-1 rounded-full border border-indigo-500/30 uppercase tracking-widest">Exclusive Update</span>
+                <h3 class="text-lg font-bold text-white mt-1">Pro Version & Analytics Dashboard Coming Soon!</h3>
+                <p class="text-xs text-slate-300">Track QR scans, dynamic redirects, custom logo embedding, and bulk generation features are launching shortly.</p>
+            </div>
+            <div class="bg-indigo-600/30 border border-indigo-500/50 px-5 py-2.5 rounded-xl text-indigo-200 text-xs font-bold whitespace-nowrap animate-pulse">
+                <i class="fa-solid fa-rocket mr-1.5"></i> Stay Tuned
+            </div>
+        </div>
+
+        <!-- Professional Footer Links -->
+        <footer class="w-full border-t border-slate-800/80 pt-6 pb-4 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4">
+            <p>&copy; 2026 Pro QR Generator. All rights reserved.</p>
+            <div class="flex flex-wrap gap-6">
+                <a href="#about" class="hover:text-indigo-400 transition">About Us</a>
+                <a href="#contact" class="hover:text-indigo-400 transition">Contact Us</a>
+                <a href="#privacy" class="hover:text-indigo-400 transition">Privacy Policy</a>
+                <a href="#terms" class="hover:text-indigo-400 transition">Terms of Service</a>
+            </div>
+        </footer>
+
     </div>
 
+    <!-- JavaScript Logic -->
     <script>
         let currentTab = 'url';
 
         function switchTab(tab) {
             currentTab = tab;
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-indigo-600', 'text-white');
+                btn.classList.remove('bg-indigo-600', 'text-white', 'shadow-md');
                 btn.classList.add('bg-slate-800', 'text-slate-300');
             });
-            document.getElementById(`tab-${tab}`).classList.remove('bg-slate-800', 'text-slate-300');
-            document.getElementById(`tab-${tab}`).classList.add('bg-indigo-600', 'text-white');
+            const activeBtn = document.getElementById(`tab-${tab}`);
+            if(activeBtn) {
+                activeBtn.classList.remove('bg-slate-800', 'text-slate-300');
+                activeBtn.classList.add('bg-indigo-600', 'text-white', 'shadow-md');
+            }
             renderForm();
             generateQR();
         }
@@ -106,40 +164,25 @@
         function renderForm() {
             const container = document.getElementById('form-content');
             if (currentTab === 'url') {
-                container.innerHTML = `
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Website URL</label>
-                        <input type="url" id="in-url" placeholder="https://example.com" value="https://pro-qr-generator.com" oninput="generateQR()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200 focus:outline-none focus:border-indigo-500">
-                    </div>
-                `;
+                container.innerHTML = `<div><label class="block text-xs font-medium text-slate-400 mb-1">Website URL</label><input type="url" id="in-url" placeholder="https://example.com" value="https://pro-qr-generator.com" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-indigo-500"></div>`;
             } else if (currentTab === 'text') {
-                container.innerHTML = `
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Plain Text / Message</label>
-                        <textarea id="in-text" rows="3" placeholder="Enter your text here..." oninput="generateQR()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200 focus:outline-none focus:border-indigo-500">Welcome to Pro QR Generator!</textarea>
-                    </div>
-                `;
+                container.innerHTML = `<div><label class="block text-xs font-medium text-slate-400 mb-1">Plain Text / Message</label><textarea id="in-text" rows="3" placeholder="Enter your text here..." oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-indigo-500">Welcome to Pro QR Generator!</textarea></div>`;
             } else if (currentTab === 'wifi') {
-                container.innerHTML = `
-                    <div class="space-y-3">
-                        <div><label class="block text-xs font-medium text-slate-400 mb-1">Network SSID (Name)</label><input type="text" id="wifi-ssid" placeholder="MyWiFiNetwork" oninput="generateQR()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200"></div>
-                        <div><label class="block text-xs font-medium text-slate-400 mb-1">Password</label><input type="text" id="wifi-pass" placeholder="Password123" oninput="generateQR()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200"></div>
-                    </div>
-                `;
+                container.innerHTML = `<div class="space-y-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">Network SSID (Name)</label><input type="text" id="wifi-ssid" placeholder="MyWiFiNetwork" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Password</label><input type="text" id="wifi-pass" placeholder="Password123" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div></div>`;
             } else if (currentTab === 'vcard') {
-                container.innerHTML = `
-                    <div class="space-y-3 grid grid-cols-2 gap-3">
-                        <div><label class="block text-xs font-medium text-slate-400 mb-1">First Name</label><input type="text" id="vc-fname" placeholder="John" oninput="generateQR()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200"></div>
-                        <div><label class="block text-xs font-medium text-slate-400 mb-1">Phone</label><input type="tel" id="vc-phone" placeholder="+1234567890" oninput="generateQR()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200"></div>
-                    </div>
-                `;
+                container.innerHTML = `<div class="grid grid-cols-2 gap-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label><input type="text" id="vc-name" placeholder="John Doe" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Phone</label><input type="tel" id="vc-phone" placeholder="+1234567890" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div></div>`;
             } else if (currentTab === 'email') {
-                container.innerHTML = `
-                    <div class="space-y-3">
-                        <div><label class="block text-xs font-medium text-slate-400 mb-1">Recipient Email</label><input type="email" id="em-to" placeholder="example@domain.com" oninput="generateQR()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200"></div>
-                        <div><label class="block text-xs font-medium text-slate-400 mb-1">Subject</label><input type="text" id="em-sub" placeholder="Hello" oninput="generateQR()" class="w-full px-3 py-2 bg-slate-800 border border-slate-700 rounded-lg text-sm text-slate-200"></div>
-                    </div>
-                `;
+                container.innerHTML = `<div class="space-y-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">Recipient Email</label><input type="email" id="em-to" placeholder="example@domain.com" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Subject</label><input type="text" id="em-sub" placeholder="Hello" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div></div>`;
+            } else if (currentTab === 'sms') {
+                container.innerHTML = `<div class="space-y-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">Phone Number</label><input type="tel" id="sms-phone" placeholder="+1234567890" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Message</label><input type="text" id="sms-msg" placeholder="Hello there!" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div></div>`;
+            } else if (currentTab === 'phone') {
+                container.innerHTML = `<div><label class="block text-xs font-medium text-slate-400 mb-1">Phone Number</label><input type="tel" id="ph-num" placeholder="+1234567890" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div>`;
+            } else if (currentTab === 'whatsapp') {
+                container.innerHTML = `<div class="space-y-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">WhatsApp Number with Country Code</label><input type="tel" id="wa-num" placeholder="+923001234567" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Preset Message</label><input type="text" id="wa-msg" placeholder="Hi, I want to connect!" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div></div>`;
+            } else if (currentTab === 'location') {
+                container.innerHTML = `<div class="grid grid-cols-2 gap-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">Latitude</label><input type="text" id="loc-lat" placeholder="37.7749" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Longitude</label><input type="text" id="loc-lng" placeholder="-122.4194" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div></div>`;
+            } else if (currentTab === 'event') {
+                container.innerHTML = `<div class="space-y-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">Event Title</label><input type="text" id="ev-title" placeholder="Meeting" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Date & Time</label><input type="text" id="ev-time" placeholder="20261231T120000Z" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-sm text-slate-200"></div></div>`;
             }
         }
 
@@ -148,49 +191,69 @@
             if (currentTab === 'url') data = document.getElementById("in-url")?.value || data;
             else if (currentTab === 'text') data = document.getElementById("in-text")?.value || "Hello!";
             else if (currentTab === 'wifi') {
-                const ssid = document.getElementById("wifi-ssid")?.value || "";
-                const pass = document.getElementById("wifi-pass")?.value || "";
-                data = `WIFI:S:${ssid};T:WPA;P:${pass};;`;
+                const s = document.getElementById("wifi-ssid")?.value || "";
+                const p = document.getElementById("wifi-pass")?.value || "";
+                data = `WIFI:S:${s};T:WPA;P:${p};;`;
             } else if (currentTab === 'vcard') {
-                const fname = document.getElementById("vc-fname")?.value || "";
-                const phone = document.getElementById("vc-phone")?.value || "";
-                data = `BEGIN:VCARD\nVERSION:3.0\nFN:${fname}\nTEL:${phone}\nEND:VCARD`;
+                const n = document.getElementById("vc-name")?.value || "";
+                const ph = document.getElementById("vc-phone")?.value || "";
+                data = `BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL:${ph}\nEND:VCARD`;
             } else if (currentTab === 'email') {
                 const to = document.getElementById("em-to")?.value || "";
                 const sub = document.getElementById("em-sub")?.value || "";
                 data = `mailto:${to}?subject=${encodeURIComponent(sub)}`;
+            } else if (currentTab === 'sms') {
+                const num = document.getElementById("sms-phone")?.value || "";
+                const msg = document.getElementById("sms-msg")?.value || "";
+                data = `SMSTO:${num}:${msg}`;
+            } else if (currentTab === 'phone') {
+                const num = document.getElementById("ph-num")?.value || "";
+                data = `tel:${num}`;
+            } else if (currentTab === 'whatsapp') {
+                const num = document.getElementById("wa-num")?.value || "";
+                const msg = encodeURIComponent(document.getElementById("wa-msg")?.value || "");
+                data = `https://wa.me/${num}?text=${msg}`;
+            } else if (currentTab === 'location') {
+                const lat = document.getElementById("loc-lat")?.value || "0";
+                const lng = document.getElementById("loc-lng")?.value || "0";
+                data = `geo:${lat},${lng}`;
+            } else if (currentTab === 'event') {
+                const title = document.getElementById("ev-title")?.value || "Event";
+                data = `BEGIN:VEVENT\nSUMMARY:${title}\nEND:VEVENT`;
             }
             return data;
         }
 
         function generateQR() {
-            const data = getQRCodeData();
-            const canvas = document.getElementById("qr-canvas");
-            const fgColor = document.getElementById("qr-color").value;
-            const bgColor = document.getElementById("qr-bg").value;
-
-            QRCode.toCanvas(canvas, data, {
-                width: 250,
-                margin: 2,
-                color: {
-                    dark: fgColor,
-                    light: bgColor
-                }
-            }, function (error) {
-                if (error) console.error(error);
-            });
+            const textData = encodeURIComponent(getQRCodeData());
+            const fg = document.getElementById("qr-color").value.replace('#', '');
+            const bg = document.getElementById("qr-bg").value.replace('#', '');
+            
+            // Using reliable public QR API endpoint to ensure instant rendering without blank screens
+            const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${textData}&color=${fg}&bgcolor=${bg}`;
+            document.getElementById("qr-image").src = apiUrl;
         }
 
         function downloadQR(format) {
-            const canvas = document.getElementById("qr-canvas");
-            const link = document.createElement('a');
-            link.download = `Pro-QRCode.${format}`;
-            if (format === 'jpg') {
-                link.href = canvas.toDataURL("image/jpeg", 1.0);
-            } else {
-                link.href = canvas.toDataURL("image/png");
-            }
-            link.click();
+            const textData = encodeURIComponent(getQRCodeData());
+            const fg = document.getElementById("qr-color").value.replace('#', '');
+            const bg = document.getElementById("qr-bg").value.replace('#', '');
+            
+            // Format mapping
+            let fmt = format;
+            if(format === 'jpg') fmt = 'jpg';
+            if(format === 'png') fmt = 'png';
+            if(format === 'svg') fmt = 'svg';
+            if(format === 'webp') fmt = 'webp';
+
+            const downloadUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${textData}&color=${fg}&bgcolor=${bg}&format=${fmt}`;
+            
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = `Pro-QRCode.${fmt}`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
         }
 
         window.onload = () => {
@@ -200,6 +263,8 @@
     </script>
 </body>
 </html>
+
+
 
 
 
