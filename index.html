@@ -2,39 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <meta name="theme-color" content="#07091b">
 <meta name="description" content="Pro QR Generator — create beautiful, customizable QR codes instantly.">
 <title>Pro QR Generator — Free QR Code Maker</title>
 
-<!-- QR Code Styling: generates real scannable QR codes in the browser -->
 <script src="https://cdn.jsdelivr.net/npm/qr-code-styling@1.9.2/lib/qr-code-styling.js"></script>
-<!-- PDF export -->
 <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
-<!-- QR decoder for the Scan Me test button -->
-<script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js"></script>
 
 <style>
 :root{
-  --bg:#050718;
-  --panel:#0b1024;
-  --panel2:#10162e;
-  --line:rgba(255,255,255,.09);
-  --text:#f6f7ff;
-  --muted:#9aa3bd;
-  --purple:#7c3cff;
-  --purple2:#5b20f0;
-  --cyan:#24e6d0;
-  --pink:#ff4dc4;
-  --green:#31e0a0;
-  --orange:#ffb23e;
+  --bg:#050718;--panel:#0b1024;--panel2:#10162e;--line:rgba(255,255,255,.09);
+  --text:#f6f7ff;--muted:#9aa3bd;--purple:#7c3cff;--purple2:#5b20f0;
+  --cyan:#24e6d0;--pink:#ff4dc4;--green:#31e0a0;--orange:#ffb23e;
   --shadow:0 18px 60px rgba(0,0,0,.35);
 }
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{
-  margin:0;
-  color:var(--text);
+  margin:0;color:var(--text);
   background:
     radial-gradient(circle at 18% 12%,rgba(124,60,255,.12),transparent 28%),
     radial-gradient(circle at 80% 20%,rgba(36,230,208,.06),transparent 22%),
@@ -42,92 +28,64 @@ body{
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
 }
 button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-a{color:inherit;text-decoration:none}
-.container{width:min(1440px,calc(100% - 36px));margin:auto}
+button{cursor:pointer}a{color:inherit;text-decoration:none}
+.container{width:min(1490px,calc(100% - 36px));margin:auto}
 
 /* Header */
 header{
-  position:sticky;top:0;z-index:50;
-  height:70px;
-  background:rgba(5,7,24,.84);
-  backdrop-filter:blur(18px);
-  border-bottom:1px solid var(--line);
+  position:sticky;top:0;z-index:50;height:70px;
+  background:rgba(5,7,24,.86);backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line)
 }
 .nav{height:100%;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .brand{display:flex;align-items:center;gap:11px;font-weight:800;font-size:16px}
 .brand-mark{
-  width:34px;height:34px;border-radius:8px;
-  display:grid;place-items:center;
+  width:34px;height:34px;border-radius:8px;display:grid;place-items:center;
   background:linear-gradient(135deg,#8b5cff,#5520dc);
-  box-shadow:0 0 25px rgba(124,60,255,.35);
-  font-size:20px;
+  box-shadow:0 0 25px rgba(124,60,255,.35);font-size:20px
 }
-.brand b{color:#fff}.brand span{color:#a16cff}
-.navlinks{display:flex;gap:34px;color:#c2c8dc;font-size:14px}
-.navlinks a:hover{color:#fff}
-.nav-actions{display:flex;align-items:center;gap:10px}
+.brand span{color:#a16cff}.navlinks{display:flex;gap:34px;color:#c2c8dc;font-size:14px}
+.navlinks a:hover{color:#fff}.nav-actions{display:flex;align-items:center;gap:10px}
 .btn{
-  border:1px solid var(--line);color:#fff;background:#10162a;
-  border-radius:9px;padding:10px 17px;font-weight:700;
-  transition:.2s transform,.2s box-shadow,.2s background;
+  border:1px solid var(--line);color:#fff;background:#10162a;border-radius:9px;
+  padding:10px 17px;font-weight:700;transition:.2s transform,.2s box-shadow,.2s background
 }
 .btn:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(0,0,0,.22)}
 .btn.primary{border:0;background:linear-gradient(135deg,#7130ff,#8c2cff);box-shadow:0 8px 25px rgba(112,48,255,.25)}
-.btn.ghost{background:transparent}
-.icon-btn{width:40px;height:40px;padding:0;display:grid;place-items:center}
+.btn.ghost{background:transparent}.icon-btn{width:40px;height:40px;padding:0;display:grid;place-items:center}
 .mobile-menu{display:none}
 
-/* Landing */
+/* Home */
+.page{display:none}.page.active{display:block}.page-transition{animation:pageIn .28s ease}
+@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 .hero{padding:92px 0 55px;min-height:680px;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:50px}
 .pill{
-  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;
-  border-radius:999px;background:rgba(25,216,175,.08);
-  border:1px solid rgba(25,216,175,.16);color:#4de9c2;font-size:13px;font-weight:700;
+  display:inline-flex;align-items:center;gap:8px;padding:8px 13px;border-radius:999px;
+  background:rgba(25,216,175,.08);border:1px solid rgba(25,216,175,.16);
+  color:#4de9c2;font-size:13px;font-weight:700
 }
-.hero h1{font-size:clamp(44px,5vw,78px);line-height:.98;margin:22px 0 22px;letter-spacing:-3px}
+.hero h1{font-size:clamp(44px,5vw,78px);line-height:.98;margin:22px 0;letter-spacing:-3px}
 .gradient{background:linear-gradient(90deg,#8b38ff,#ad6dff,#fff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .hero p{max-width:650px;color:#a9b1c8;font-size:18px;line-height:1.7}
 .hero-buttons{display:flex;gap:12px;margin:30px 0 38px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--line);background:rgba(13,17,38,.65);border-radius:14px;overflow:hidden}
-.stat{padding:18px;border-right:1px solid var(--line)}
-.stat:last-child{border:0}.stat strong{display:block;font-size:20px}.stat small{color:#8992ab}
+.stat{padding:18px;border-right:1px solid var(--line)}.stat:last-child{border:0}
+.stat strong{display:block;font-size:20px}.stat small{color:#8992ab}
 .hero-visual{position:relative;min-height:510px;display:grid;place-items:center}
-.glow{
-  position:absolute;width:390px;height:390px;border-radius:50%;
-  background:radial-gradient(circle,rgba(125,60,255,.38),rgba(125,60,255,0) 68%);
-  filter:blur(5px)
-}
+.glow{position:absolute;width:390px;height:390px;border-radius:50%;background:radial-gradient(circle,rgba(125,60,255,.38),rgba(125,60,255,0) 68%);filter:blur(5px)}
 .hero-qr{
-  position:relative;width:370px;height:370px;border-radius:28px;
-  background:linear-gradient(145deg,#ffffff 0%,#faf7ff 48%,#e7dcff 100%);
-  display:grid;place-items:center;
-  transform:perspective(1000px) rotateX(8deg) rotateY(-14deg) rotateZ(-7deg);
-  transform-style:preserve-3d;
-  box-shadow:24px 30px 0 rgba(54,24,130,.28),0 0 90px rgba(112,48,255,.34),0 38px 85px rgba(0,0,0,.48);
-  animation:qrFloat 4.5s ease-in-out infinite;
+  position:relative;width:370px;height:370px;border-radius:28px;background:linear-gradient(145deg,#fff,#faf7ff 48%,#e7dcff);
+  display:grid;place-items:center;transform:perspective(1000px) rotateX(8deg) rotateY(-14deg) rotateZ(-7deg);
+  transform-style:preserve-3d;box-shadow:24px 30px 0 rgba(54,24,130,.28),0 0 90px rgba(112,48,255,.34),0 38px 85px rgba(0,0,0,.48);
+  animation:qrFloat 4.5s ease-in-out infinite
 }
-.hero-qr:before{
-  content:"";position:absolute;inset:10px;border-radius:21px;
-  border:1px solid rgba(112,48,255,.14);
-  box-shadow:inset 0 0 42px rgba(124,60,255,.10);
-  pointer-events:none;
-}
-.hero-qr:after{
-  content:"";position:absolute;left:22px;right:22px;bottom:-27px;height:30px;
-  border-radius:50%;background:rgba(0,0,0,.43);filter:blur(16px);
-  transform:translateZ(-35px) rotateX(65deg);pointer-events:none;
-}
-.hero-qr-depth,.hero-qr-face{
-  position:absolute;width:292px;height:292px;display:grid;place-items:center;
-}
-.hero-qr-depth{transform:translate3d(15px,15px,-8px);filter:brightness(.78) saturate(.9);opacity:.92}
+.hero-qr:before{content:"";position:absolute;inset:10px;border-radius:21px;border:1px solid rgba(112,48,255,.14);box-shadow:inset 0 0 42px rgba(124,60,255,.1)}
+.hero-qr:after{content:"";position:absolute;left:22px;right:22px;bottom:-27px;height:30px;border-radius:50%;background:rgba(0,0,0,.43);filter:blur(16px)}
+.hero-qr-depth,.hero-qr-face{position:absolute;width:292px;height:292px;display:grid;place-items:center}
+.hero-qr-depth{transform:translate3d(15px,15px,-8px);filter:brightness(.78);opacity:.92}
 .hero-qr-face{transform:translate3d(0,0,22px);z-index:3}
 .hero-qr-depth canvas,.hero-qr-face canvas{width:292px!important;height:292px!important;border-radius:9px}
-.hero-qr-shine{
-  position:absolute;inset:22px;border-radius:19px;z-index:5;pointer-events:none;
-  background:linear-gradient(125deg,rgba(255,255,255,.38),transparent 28%,transparent 72%,rgba(124,60,255,.08));
-}
+.hero-qr-shine{position:absolute;inset:22px;border-radius:19px;z-index:5;pointer-events:none;background:linear-gradient(125deg,rgba(255,255,255,.38),transparent 28%,transparent 72%,rgba(124,60,255,.08))}
 @keyframes qrFloat{
   0%,100%{transform:perspective(1000px) rotateX(8deg) rotateY(-14deg) rotateZ(-7deg) translateY(0)}
   50%{transform:perspective(1000px) rotateX(11deg) rotateY(-10deg) rotateZ(-5deg) translateY(-10px)}
@@ -135,118 +93,158 @@ header{
 .float-icon{position:absolute;width:52px;height:52px;border-radius:13px;display:grid;place-items:center;background:#111733;border:1px solid var(--line);box-shadow:var(--shadow);font-size:24px}
 .f1{top:12%;right:5%}.f2{left:5%;top:27%}.f3{right:1%;bottom:25%}.f4{left:14%;bottom:10%}
 
-/* Sections */
-.section{padding:82px 0}
-.section-head{text-align:center;margin-bottom:38px}
+.section{padding:82px 0}.section-head{text-align:center;margin-bottom:38px}
 .section-head h2{font-size:34px;margin:0 0 10px}.section-head p{color:var(--muted);margin:0}
 .features{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
 .card{background:linear-gradient(180deg,rgba(15,20,44,.95),rgba(9,13,31,.92));border:1px solid var(--line);border-radius:14px;padding:25px;box-shadow:var(--shadow)}
 .feature-icon{width:42px;height:42px;border-radius:11px;display:grid;place-items:center;background:rgba(124,60,255,.13);color:#9d72ff;font-size:20px;margin-bottom:18px}
 .card h3{margin:0 0 9px;font-size:16px}.card p{color:var(--muted);line-height:1.6;font-size:13px;margin:0}
-
-/* How */
 .how{border:1px solid var(--line);border-radius:16px;padding:34px;background:rgba(8,12,30,.5)}
 .steps{display:grid;grid-template-columns:1fr 30px 1fr 30px 1fr;align-items:center}
 .step{text-align:center}.step-num{width:40px;height:40px;margin:auto;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,#6e34ff,#9a38ff);font-weight:800}
 .step h3{margin:14px 0 7px}.step p{margin:0;color:var(--muted);font-size:13px}.arrow{text-align:center;color:#777fa1;font-size:24px}
 
-/* Generator */
-#generator{padding-top:35px}
-.generator-shell{display:grid;grid-template-columns:230px 1fr;gap:14px}
-.sidebar,.main-panel,.preview-panel{background:rgba(10,15,34,.94);border:1px solid var(--line);border-radius:14px}
-.sidebar{padding:13px}
-.sidebar h4{margin:10px 12px 13px;color:#c9cfe0;font-size:13px;letter-spacing:.7px}
+/* Ads */
+.page-ad{width:100%;min-height:90px;border:1px dashed #413261;border-radius:12px;display:grid;place-items:center;text-align:center;color:#8d68bb;background:rgba(20,12,40,.18);margin:25px 0}
+.page-ad strong{display:block;color:#b27cff;font-size:12px}.page-ad span{font-size:10px;color:#73608e}
+
+/* QR Studio — screenshot-matching */
+#generator{padding-top:18px}
+.studio-top{display:flex;align-items:center;justify-content:space-between;gap:15px;margin:16px 0 12px}
+.back-row{display:flex;align-items:center;gap:10px}.back-row .btn{padding:8px 13px;font-size:12px}
+.studio-title h2{margin:0;font-size:23px}.studio-title p{margin:5px 0 0;color:var(--muted);font-size:12px}
+
+.generator-view{width:100%}
+.studio-steps{
+  display:grid;grid-template-columns:repeat(4,1fr);align-items:center;
+  min-height:72px;padding:10px 28px;margin-bottom:10px;
+  background:rgba(8,13,30,.9);border:1px solid var(--line);border-radius:14px;
+  position:relative;overflow:hidden
+}
+.studio-steps:before{
+  content:"";position:absolute;left:9%;right:9%;top:34px;height:2px;background:#222941;z-index:0
+}
+.studio-step{position:relative;z-index:1;text-align:center;color:#78819a;font-size:11px}
+.studio-step .num{
+  width:32px;height:32px;border-radius:50%;margin:0 auto 6px;display:grid;place-items:center;
+  background:#202741;border:1px solid #2c3450;color:#aab2c8;font-weight:800
+}
+.studio-step.active{color:#c4a8ff}.studio-step.active .num{
+  background:linear-gradient(135deg,#6330ef,#8f36ff);border-color:#925cff;color:#fff;
+  box-shadow:0 0 20px rgba(112,48,255,.45)
+}
+
+.generator-shell{display:grid;grid-template-columns:235px minmax(0,1fr);gap:10px}
+.sidebar,.main-panel,.preview-panel{
+  background:rgba(10,15,34,.96);border:1px solid var(--line);border-radius:14px
+}
+.sidebar{padding:10px;align-self:start}
+.sidebar h4{margin:10px 12px 12px;color:#c9cfe0;font-size:12px;letter-spacing:.7px}
 .type-btn{
   width:100%;border:1px solid transparent;background:transparent;color:#b6bdd1;
-  padding:11px;border-radius:9px;text-align:left;display:flex;align-items:center;gap:10px;margin-bottom:3px
+  padding:9px 10px;border-radius:8px;text-align:left;display:flex;align-items:center;gap:9px;margin-bottom:2px
 }
-.type-btn:hover{background:#111733;color:#fff}.type-btn.active{background:linear-gradient(90deg,rgba(124,60,255,.22),rgba(124,60,255,.08));border-color:rgba(124,60,255,.55);color:#fff}
-.type-icon{width:27px;text-align:center}.type-text strong{display:block;font-size:13px}.type-text small{display:block;font-size:10px;color:#78819a;margin-top:2px}
-.main-grid{display:grid;grid-template-columns:minmax(400px,1fr) 380px;gap:14px}
-.main-panel{padding:24px}.preview-panel{padding:24px;display:flex;flex-direction:column}
-.steps-bar{display:grid;grid-template-columns:repeat(4,1fr);margin:-2px 0 22px;border-bottom:1px solid var(--line);padding-bottom:18px}
-.mini-step{text-align:center;color:#78819a;font-size:11px;position:relative}.mini-step:before{content:"";display:block;margin:0 auto 7px;width:26px;height:26px;border-radius:50%;background:#202741;color:#fff;line-height:26px}
-.mini-step:nth-child(1):before{content:"1"}.mini-step:nth-child(2):before{content:"2"}.mini-step:nth-child(3):before{content:"3"}.mini-step:nth-child(4):before{content:"4"}
-.mini-step.active{color:#bd9cff}.mini-step.active:before{background:#6732f5;box-shadow:0 0 16px rgba(103,50,245,.55)}
-.panel-title h2{margin:0 0 6px;font-size:22px}.panel-title p{margin:0;color:var(--muted);font-size:13px}
-.form-section{border:1px solid var(--line);background:rgba(14,20,43,.55);border-radius:11px;padding:16px;margin-top:15px}
-.form-section h3{font-size:13px;color:#cbd1e2;margin:0 0 13px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.form-grid.one{grid-template-columns:1fr}
-.field label{display:block;color:#929bb2;font-size:11px;margin-bottom:7px}
+.type-btn:hover{background:#111733;color:#fff}
+.type-btn.active{background:linear-gradient(90deg,rgba(124,60,255,.24),rgba(124,60,255,.07));border-color:rgba(124,60,255,.58);color:#fff;box-shadow:inset 3px 0 #7c3cff}
+.type-icon{width:27px;height:27px;border-radius:7px;display:grid;place-items:center;background:#151b38;color:#a98aff;font-size:14px}
+.type-text strong{display:block;font-size:12px}.type-text small{display:block;font-size:9px;color:#78819a;margin-top:2px}
+
+.main-grid{display:grid;grid-template-columns:minmax(420px,1fr) 410px;gap:10px}
+.main-panel{padding:14px}.preview-panel{padding:14px;display:flex;flex-direction:column}
+.panel-title h2{margin:0 0 5px;font-size:18px}.panel-title p{margin:0;color:var(--muted);font-size:11px}
+.form-section{
+  border:1px solid var(--line);background:rgba(14,20,43,.58);border-radius:10px;padding:13px;margin-top:10px
+}
+.form-section h3{font-size:12px;color:#cbd1e2;margin:0 0 11px}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.field label{display:block;color:#929bb2;font-size:10px;margin-bottom:6px}
 input,select,textarea{
-  width:100%;border:1px solid #252c48;background:#090e22;color:#fff;
-  border-radius:8px;padding:11px 12px;outline:none
+  width:100%;border:1px solid #252c48;background:#090e22;color:#fff;border-radius:7px;padding:9px 10px;outline:none;font-size:12px
 }
 input:focus,select:focus,textarea:focus{border-color:#6f3dff;box-shadow:0 0 0 3px rgba(111,61,255,.1)}
-textarea{min-height:90px;resize:vertical}
-.color-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.color-input{display:flex;gap:8px}.color-input input[type=color]{width:44px;padding:3px;height:40px}.color-input input[type=text]{flex:1}
-.swatches{display:flex;gap:8px;margin-top:9px}.swatch{width:28px;height:28px;border-radius:7px;border:2px solid rgba(255,255,255,.15);cursor:pointer}
-.option-row{display:flex;gap:8px;flex-wrap:wrap}
-.option{
-  border:1px solid #2b3150;background:#0a1026;color:#c2c9da;padding:8px 12px;border-radius:8px;font-size:12px
+textarea{min-height:80px;resize:vertical}
+.color-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.color-input{display:flex;gap:7px}.color-input input[type=color]{width:39px;padding:2px;height:36px}.color-input input[type=text]{flex:1}
+.swatches{display:flex;gap:7px;margin-top:8px;flex-wrap:wrap}
+.swatch{width:25px;height:25px;border-radius:6px;border:2px solid rgba(255,255,255,.16);cursor:pointer}
+.option-row{display:flex;gap:6px;flex-wrap:wrap}
+.option{border:1px solid #2b3150;background:#0a1026;color:#c2c9da;padding:7px 10px;border-radius:7px;font-size:11px}
+.option.active{border-color:#713aff;background:rgba(113,58,255,.14);color:#fff;box-shadow:0 0 0 1px rgba(113,58,255,.18)}
+.range-row{display:grid;grid-template-columns:1fr 58px;align-items:center;gap:10px}
+input[type=range]{padding:0;accent-color:#713aff}.range-value{text-align:right;color:#aeb5ca;font-size:11px}
+.logo-drop{display:flex;align-items:center;gap:10px;border:1px dashed #343c5d;padding:10px;border-radius:8px}
+.logo-drop input{border:0;padding:0;background:transparent;font-size:11px}
+.helper{color:#737c96;font-size:9px;margin-top:5px;line-height:1.45}
+
+.preview-panel .panel-title{padding:2px 2px 9px}
+.preview-box{
+  flex:1;min-height:385px;display:grid;place-items:center;background:#070a17;border:1px solid var(--line);
+  border-radius:11px;padding:18px;overflow:hidden
 }
-.option.active{border-color:#713aff;background:rgba(113,58,255,.14);color:#fff}
-.range-row{display:grid;grid-template-columns:1fr 70px;align-items:center;gap:12px}
-input[type=range]{padding:0;accent-color:#713aff}
-.range-value{text-align:right;color:#aeb5ca;font-size:12px}
-.logo-drop{display:flex;align-items:center;gap:12px;border:1px dashed #343c5d;padding:12px;border-radius:9px}
-.logo-drop input{border:0;padding:0;background:transparent}
-.helper{color:#737c96;font-size:10px;margin-top:6px}
-.preview-box{flex:1;display:grid;place-items:center;min-height:400px;background:#070a17;border:1px solid var(--line);border-radius:12px;padding:24px}
-#qrPreview{background:#fff;border-radius:13px;padding:10px;box-shadow:0 15px 45px rgba(0,0,0,.25)}
-.preview-caption{text-align:center;color:#8e96ad;font-size:11px;margin:10px 0}
-.scan-btn{width:100%;margin-top:8px}
-.download-box{margin-top:14px}.download-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.download-btn{padding:10px 5px;font-size:11px}
-.ad-space{height:90px;margin-top:14px;border:1px dashed #413261;border-radius:10px;display:grid;place-items:center;color:#8d68bb;font-size:12px}
-.page-ad{width:100%;min-height:100px;border:1px dashed #413261;border-radius:12px;display:grid;place-items:center;text-align:center;color:#8d68bb;background:rgba(20,12,40,.18);margin:28px 0}
-.page-ad strong{display:block;color:#b27cff;font-size:12px}.page-ad span{font-size:10px;color:#73608e}
-.page{display:none}.page.active{display:block}.page-transition{animation:pageIn .28s ease}
-@keyframes pageIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.back-row{display:flex;align-items:center;gap:10px;margin:18px 0}.back-row .btn{padding:8px 13px;font-size:12px}
+#qrPreview{background:#fff;border-radius:11px;padding:9px;box-shadow:0 15px 45px rgba(0,0,0,.25);max-width:100%}
+#qrPreview canvas,#qrPreview svg{max-width:100%;height:auto!important}
+.preview-caption{text-align:center;color:#8e96ad;font-size:10px;margin:8px 0}
+.scan-btn{width:100%;margin-top:5px}
+.download-box{margin-top:10px}
+.download-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.download-btn{padding:9px 4px;font-size:10px}
+.download-main{
+  width:100%;margin-top:8px;padding:12px 14px;font-size:12px;
+  background:linear-gradient(135deg,#5b20f0,#8c2cff);border:0;border-radius:8px;color:#fff;font-weight:800;
+  box-shadow:0 8px 22px rgba(112,48,255,.2)
+}
+.ad-space{height:74px;margin-top:10px;border:1px dashed #413261;border-radius:9px;display:grid;place-items:center;color:#8d68bb;font-size:10px;text-align:center}
+.quality-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
+.quality-card{border:1px solid var(--line);background:rgba(12,18,39,.85);border-radius:9px;padding:10px 6px;text-align:center}
+.quality-card .q-icon{font-size:16px;margin-bottom:4px}.quality-card strong{display:block;font-size:9px}.quality-card span{display:block;color:#737c96;font-size:8px;margin-top:3px}
 
 /* Dashboard */
-.dashboard{display:none}
-.dashboard.active{display:block}
-.generator-view.hidden{display:none}
+.dashboard{display:none}.dashboard.active{display:block}.generator-view.hidden{display:none}
 .dash-layout{display:grid;grid-template-columns:190px 1fr;gap:14px}
-.dash-side{background:rgba(10,15,34,.94);border:1px solid var(--line);border-radius:14px;padding:13px}
-.dash-link{width:100%;background:transparent;border:0;color:#9fa8c0;text-align:left;padding:11px;border-radius:8px;margin-bottom:4px}
-.dash-link.active,.dash-link:hover{background:#151b38;color:#fff}
-.dash-content{background:rgba(10,15,34,.94);border:1px solid var(--line);border-radius:14px;padding:24px}
-.dash-top{display:flex;justify-content:space-between;align-items:center;gap:15px}.dash-top h2{margin:0}.search-row{display:flex;gap:9px;margin:22px 0}.search-row input{max-width:420px}
-.table-wrap{overflow:auto}.qr-table{width:100%;border-collapse:collapse;min-width:720px}.qr-table th,.qr-table td{padding:13px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}.qr-table th{color:#79829b;font-weight:600}.qr-table td{color:#c5cbdc}
+.dash-side,.dash-content{background:rgba(10,15,34,.94);border:1px solid var(--line);border-radius:14px}
+.dash-side{padding:13px}.dash-link{width:100%;background:transparent;border:0;color:#9fa8c0;text-align:left;padding:11px;border-radius:8px;margin-bottom:4px}
+.dash-link.active,.dash-link:hover{background:#151b38;color:#fff}.dash-content{padding:24px}
+.dash-top{display:flex;justify-content:space-between;align-items:center;gap:15px}.dash-top h2{margin:0}
+.search-row{display:flex;gap:9px;margin:22px 0}.search-row input{max-width:420px}
+.table-wrap{overflow:auto}.qr-table{width:100%;border-collapse:collapse;min-width:720px}
+.qr-table th,.qr-table td{padding:13px;border-bottom:1px solid var(--line);text-align:left;font-size:12px}
+.qr-table th{color:#79829b;font-weight:600}.qr-table td{color:#c5cbdc}
 .badge{display:inline-flex;padding:5px 8px;border-radius:6px;background:rgba(124,60,255,.14);color:#bd9cff;font-size:10px}
-.action{border:0;background:transparent;color:#8992ab;padding:5px}.action:hover{color:#fff}
-.empty{text-align:center;color:#7e879f;padding:45px}
+.action{border:0;background:transparent;color:#8992ab;padding:5px}.action:hover{color:#fff}.empty{text-align:center;color:#7e879f;padding:45px}
 
-/* CTA/footer */
+/* CTA/footer/modal */
 .cta{padding:0 0 70px}.cta-box{border:1px solid rgba(124,60,255,.35);border-radius:14px;background:linear-gradient(100deg,rgba(91,32,240,.24),rgba(30,18,80,.4));padding:25px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .cta-box h3{margin:0 0 6px}.cta-box p{margin:0;color:#9ba4bd;font-size:13px}
 footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:12px}.footer-inner{display:flex;justify-content:space-between}
-
-/* Toast/modal */
 .toast{position:fixed;right:20px;bottom:20px;z-index:100;background:#141a35;border:1px solid #303858;color:#fff;padding:12px 16px;border-radius:9px;box-shadow:var(--shadow);transform:translateY(30px);opacity:0;pointer-events:none;transition:.25s}.toast.show{transform:none;opacity:1}
 .modal{position:fixed;inset:0;z-index:90;background:rgba(0,0,0,.72);backdrop-filter:blur(8px);display:none;place-items:center;padding:20px}.modal.show{display:grid}
-.modal-card{width:min(500px,100%);background:#0b1025;border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0}.close{border:0;background:transparent;color:#929ab1;font-size:23px}
-#scanCanvas{width:100%;max-height:400px;object-fit:contain;border-radius:10px;background:#fff}.scan-result{margin-top:12px;padding:12px;background:#0a1022;border:1px solid var(--line);border-radius:8px;color:#bfc7da;font-size:12px;word-break:break-word}
+.modal-card{width:min(500px,100%);background:#0b1025;border:1px solid var(--line);border-radius:14px;padding:24px;box-shadow:var(--shadow)}
+.modal-head{display:flex;justify-content:space-between;align-items:center}.modal-head h3{margin:0}.close{border:0;background:transparent;color:#929ab1;font-size:23px}
+.scan-result{margin-top:12px;padding:12px;background:#0a1022;border:1px solid var(--line);border-radius:8px;color:#bfc7da;font-size:12px;word-break:break-word}
+#modalQr{background:#fff;border-radius:10px;padding:10px;display:grid;place-items:center;margin-top:10px}
+#modalQr canvas,#modalQr svg{max-width:100%;height:auto!important}
 
 /* Responsive */
+@media(max-width:1180px){
+  .main-grid{grid-template-columns:minmax(360px,1fr) 360px}
+}
 @media(max-width:1050px){
   .hero{grid-template-columns:1fr;text-align:center}.hero p{margin:auto}.hero-buttons{justify-content:center}.hero-visual{min-height:430px}
   .features{grid-template-columns:repeat(2,1fr)}
-  .generator-shell{grid-template-columns:180px 1fr}.main-grid{grid-template-columns:1fr}
-  .preview-panel{min-height:500px}
+  .generator-shell{grid-template-columns:180px 1fr}.main-grid{grid-template-columns:1fr}.preview-panel{min-height:500px}
 }
 @media(max-width:760px){
-  .container{width:min(100% - 22px,1440px)} header{height:62px}.navlinks,.nav-actions .ghost{display:none}.mobile-menu{display:grid}
+  .container{width:min(100% - 22px,1490px)}header{height:62px}
+  .navlinks,.nav-actions .ghost{display:none}.mobile-menu{display:grid}
   .hero{padding:65px 0 35px}.hero h1{font-size:46px;letter-spacing:-2px}.hero p{font-size:15px}.hero-qr{width:280px;height:280px}.glow{width:300px;height:300px}
   .stats{grid-template-columns:1fr 1fr}.stat{border-bottom:1px solid var(--line)}
   .features{grid-template-columns:1fr}.steps{grid-template-columns:1fr;gap:18px}.arrow{display:none}
-  .generator-shell{grid-template-columns:1fr}.sidebar{display:flex;overflow:auto;gap:5px;padding:8px}.sidebar h4{display:none}.type-btn{min-width:120px;margin:0}.type-text small{display:none}
-  .form-grid,.color-row{grid-template-columns:1fr}.main-panel,.preview-panel{padding:16px}
-  .download-grid{grid-template-columns:repeat(2,1fr)}.dash-layout{grid-template-columns:1fr}.dash-side{display:flex;overflow:auto}.dash-link{min-width:125px}
+  .studio-top{align-items:flex-start}.studio-title{display:none}
+  .studio-steps{padding:9px 4px}.studio-step{font-size:9px}.studio-step .num{width:28px;height:28px}.studio-steps:before{top:30px;left:8%;right:8%}
+  .generator-shell{grid-template-columns:1fr}.sidebar{display:flex;overflow:auto;gap:5px;padding:8px}.sidebar h4{display:none}.type-btn{min-width:116px;margin:0}.type-text small{display:none}
+  .form-grid,.color-row{grid-template-columns:1fr}.main-panel,.preview-panel{padding:12px}
+  .download-grid{grid-template-columns:repeat(2,1fr)}.quality-row{grid-template-columns:repeat(2,1fr)}
+  .dash-layout{grid-template-columns:1fr}.dash-side{display:flex;overflow:auto}.dash-link{min-width:125px}
   .cta-box{flex-direction:column;align-items:flex-start}.footer-inner{flex-direction:column;gap:8px}
 }
 </style>
@@ -255,10 +253,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
 <body>
 <header>
   <div class="container nav">
-    <a class="brand" href="#top">
-      <div class="brand-mark">⌘</div>
-      <div>Pro QR <span>Generator</span></div>
-    </a>
+    <a class="brand" href="#top"><div class="brand-mark">⌘</div><div>Pro QR <span>Generator</span></div></a>
     <nav class="navlinks">
       <a href="#features">Features</a><a href="#how">How it Works</a><a href="#generator" id="pricingLink">Pricing</a><a href="#faq">FAQ</a>
     </nav>
@@ -291,17 +286,15 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
     <div class="hero-visual">
       <div class="glow"></div>
       <div class="hero-qr">
-  <div class="hero-qr-depth" id="heroQRDepth"></div>
-  <div class="hero-qr-face" id="heroQR"></div>
-  <div class="hero-qr-shine"></div>
-</div>
+        <div class="hero-qr-depth" id="heroQRDepth"></div>
+        <div class="hero-qr-face" id="heroQR"></div>
+        <div class="hero-qr-shine"></div>
+      </div>
       <div class="float-icon f1">🔗</div><div class="float-icon f2">⌁</div><div class="float-icon f3">◎</div><div class="float-icon f4">◉</div>
     </div>
   </section>
 
-  <section class="container">
-    <div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div>
-  </section>
+  <section class="container"><div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div></section>
 
   <section class="container section" id="features">
     <div class="section-head"><h2>Powerful Features</h2><p>Everything you need to create professional QR codes</p></div>
@@ -309,7 +302,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
       <div class="card"><div class="feature-icon">✥</div><h3>Multiple Types</h3><p>URL, WiFi, Text, Email, vCard, WhatsApp, Social and many more content formats.</p></div>
       <div class="card"><div class="feature-icon">◈</div><h3>Custom Design</h3><p>Customize colors, patterns, corner styles and add a logo for branded QR codes.</p></div>
       <div class="card"><div class="feature-icon">⌗</div><h3>High Quality</h3><p>Download in PNG, JPG, SVG or PDF with selectable resolution and reliable error correction.</p></div>
-      <div class="card"><div class="feature-icon">◷</div><h3>Easy to Use</h3><p>A simple 3-step workflow with instant live preview and one-click downloads.</p></div>
+      <div class="card"><div class="feature-icon">◷</div><h3>Easy to Use</h3><p>A simple workflow with instant live preview and one-click downloads.</p></div>
     </div>
   </section>
 
@@ -326,11 +319,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
     </div>
   </section>
 
-
-
-  <section class="container">
-    <div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div>
-  </section>
+  <section class="container"><div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div></section>
 
   <section class="container cta">
     <div class="cta-box"><div><h3>Ready to create your QR code?</h3><p>Fast, customizable and free to use.</p></div><button class="btn primary" id="ctaBtn">Get Started Free →</button></div>
@@ -339,37 +328,43 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
 
 <!-- PAGE 2: QR Studio -->
 <div class="page" id="pageStudio">
-  <section class="container" style="padding-top:22px">
-    <div class="back-row">
-      <button class="btn ghost" id="backHomeBtn">← Back to Home</button>
+  <section class="container" id="generator">
+    <div class="studio-top">
+      <div class="back-row"><button class="btn ghost" id="backHomeBtn">← Back to Home</button></div>
+      <div class="studio-title"><h2>QR Studio</h2><p>Create, customize and download your QR code</p></div>
+      <div></div>
     </div>
-    <div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div>
-  </section>
-
-  <section class="container section" id="generator">
-    <div class="section-head"><h2>QR Studio</h2><p>Create, customize and download your QR code</p></div>
 
     <div class="generator-view" id="generatorView">
+      <div class="studio-steps">
+        <div class="studio-step active"><div class="num">1</div>Select Type</div>
+        <div class="studio-step active"><div class="num">2</div>Add Content</div>
+        <div class="studio-step active"><div class="num">3</div>Customize</div>
+        <div class="studio-step"><div class="num">4</div>Download</div>
+      </div>
+
       <div class="generator-shell">
-        <aside class="sidebar" id="typeSidebar">
-          <h4>CHOOSE QR TYPE</h4>
-        </aside>
+        <aside class="sidebar" id="typeSidebar"><h4>CHOOSE QR TYPE</h4></aside>
 
         <div class="main-grid">
           <section class="main-panel">
-            <div class="steps-bar">
-              <div class="mini-step active">Select Type</div><div class="mini-step active">Add Content</div><div class="mini-step active">Customize</div><div class="mini-step">Download</div>
-            </div>
             <div class="panel-title"><h2>Customize Your QR Code</h2><p>Design your QR code to match your brand</p></div>
             <div id="contentForm"></div>
 
             <div class="form-section">
               <h3>1. Colors</h3>
               <div class="color-row">
-                <div class="field"><label>Foreground Color</label><div class="color-input"><input id="fgColor" type="color" value="#6C25FF"><input id="fgText" value="#6C25FF"></div></div>
-                <div class="field"><label>Background Color</label><div class="color-input"><input id="bgColor" type="color" value="#FFFFFF"><input id="bgText" value="#FFFFFF"></div></div>
+                <div class="field">
+                  <label>Foreground Color</label>
+                  <div class="color-input"><input id="fgColor" type="color" value="#6C25FF"><input id="fgText" value="#6C25FF"></div>
+                </div>
+                <div class="field">
+                  <label>Background Color</label>
+                  <div class="color-input"><input id="bgColor" type="color" value="#FFFFFF"><input id="bgText" value="#FFFFFF"></div>
+                </div>
               </div>
               <div class="swatches" id="fgSwatches"></div>
+              <div class="swatches" id="bgSwatches"></div>
             </div>
 
             <div class="form-section">
@@ -378,7 +373,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
                 <div class="field"><label>QR Pattern</label><div class="option-row" id="dotStyleOptions"></div></div>
                 <div class="field"><label>Corner Style</label><div class="option-row" id="cornerStyleOptions"></div></div>
               </div>
-              <div class="form-grid" style="margin-top:12px">
+              <div class="form-grid" style="margin-top:10px">
                 <div class="field"><label>Dot Style</label><div class="option-row" id="cornerDotOptions"></div></div>
                 <div class="field"><label>Frame</label><div class="option-row" id="frameOptions"></div></div>
               </div>
@@ -386,14 +381,30 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
 
             <div class="form-section">
               <h3>3. Logo (Optional)</h3>
-              <div class="logo-drop"><span>▧</span><input id="logoInput" type="file" accept="image/png,image/jpeg,image/svg+xml"><span class="helper">PNG, JPG or SVG · Max 2MB</span></div>
+              <div class="logo-drop">
+                <span>▧</span><input id="logoInput" type="file" accept="image/png,image/jpeg,image/svg+xml">
+                <span class="helper">PNG, JPG or SVG · Max 2MB</span>
+              </div>
+              <div class="field" style="margin-top:11px">
+                <label>Logo Size</label>
+                <div class="range-row"><input id="logoRange" type="range" min="10" max="40" step="1" value="22"><span class="range-value" id="logoValue">22%</span></div>
+              </div>
             </div>
 
             <div class="form-section">
               <h3>4. Options</h3>
               <div class="form-grid">
-                <div class="field"><label>QR Code Size</label><div class="range-row"><input id="sizeRange" type="range" min="200" max="1200" step="50" value="500"><span class="range-value" id="sizeValue">500px</span></div></div>
-                <div class="field"><label>Error Correction</label><select id="errorCorrection"><option value="L">Low (7%)</option><option value="M" selected>Medium (15%)</option><option value="Q">Quartile (25%)</option><option value="H">High (30%)</option></select><div class="helper">Higher correction = more reliable</div></div>
+                <div class="field">
+                  <label>QR Code Size</label>
+                  <div class="range-row"><input id="sizeRange" type="range" min="200" max="1200" step="50" value="500"><span class="range-value" id="sizeValue">500px</span></div>
+                </div>
+                <div class="field">
+                  <label>Error Correction</label>
+                  <select id="errorCorrection">
+                    <option value="L">Low (7%)</option><option value="M" selected>Medium (15%)</option><option value="Q">Quartile (25%)</option><option value="H">High (30%)</option>
+                  </select>
+                  <div class="helper">Higher correction = more reliable</div>
+                </div>
               </div>
             </div>
           </section>
@@ -405,15 +416,24 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
             <button class="btn primary scan-btn" id="scanBtn">▣ Scan Me</button>
 
             <div class="form-section download-box">
-              <h3>Download QR Code</h3><div class="helper" style="margin:-6px 0 10px">Choose format to download</div>
+              <h3>Download QR Code</h3>
+              <div class="helper" style="margin:-5px 0 9px">Choose format to download</div>
               <div class="download-grid">
-                <button class="btn primary download-btn" data-format="png">PNG</button>
-                <button class="btn download-btn" data-format="jpeg">JPG</button>
-                <button class="btn download-btn" data-format="svg">SVG</button>
-                <button class="btn download-btn" data-format="pdf">PDF</button>
+                <button class="btn primary download-btn" data-format="png">▧ PNG</button>
+                <button class="btn download-btn" data-format="jpeg">▧ JPG</button>
+                <button class="btn download-btn" data-format="svg">⌁ SVG</button>
+                <button class="btn download-btn" data-format="pdf">▧ PDF</button>
               </div>
+              <button class="download-main" id="downloadMain">⇩ Download QR Code</button>
             </div>
-            <div class="ad-space">Advertisement Space<br><small>728×90</small></div>
+
+            <div class="quality-row">
+              <div class="quality-card"><div class="q-icon">▧</div><strong>High Quality</strong><span>HD Resolution</span></div>
+              <div class="quality-card"><div class="q-icon">⌁</div><strong>Vector Format</strong><span>SVG Available</span></div>
+              <div class="quality-card"><div class="q-icon">▣</div><strong>Print Ready</strong><span>300 DPI</span></div>
+              <div class="quality-card"><div class="q-icon">♙</div><strong>Secure</strong><span>Local Browser</span></div>
+            </div>
+            <div class="ad-space">Advertisement Space<br><small>728 × 90</small></div>
           </aside>
         </div>
       </div>
@@ -425,8 +445,7 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
           <button class="dash-link active">▦ Dashboard</button>
           <button class="dash-link" id="myCodesBtn">▧ My QR Codes</button>
           <button class="dash-link" id="analyticsBtn">◔ Analytics</button>
-          <button class="dash-link">▱ Folders</button>
-          <button class="dash-link">⚙ Settings</button>
+          <button class="dash-link">▱ Folders</button><button class="dash-link">⚙ Settings</button>
         </aside>
         <section class="dash-content">
           <div class="dash-top"><div><h2>My QR Codes</h2><p style="color:var(--muted);margin:6px 0 0;font-size:12px">Manage and organize your QR codes</p></div><button class="btn primary" id="newQrBtn">Create New QR</button></div>
@@ -436,353 +455,275 @@ footer{border-top:1px solid var(--line);padding:26px 0;color:#737c95;font-size:1
       </div>
     </div>
   </section>
-  <section class="container">
-    <div class="page-ad"><div><strong>Advertisement Space</strong><span>728 × 90</span></div></div>
-  </section>
 </div>
-
-<footer id="faq">
 </main>
 
-<footer id="faq">
-  <div class="container footer-inner"><span>© 2026 Pro QR Generator · Fast · Simple · Responsive</span><span>Data is processed locally in your browser where possible.</span></div>
-</footer>
+<footer id="faq"><div class="container footer-inner"><span>© 2026 Pro QR Generator · Fast · Simple · Responsive</span><span>Data is processed locally in your browser where possible.</span></div></footer>
 
 <div class="toast" id="toast"></div>
-
 <div class="modal" id="modal">
   <div class="modal-card">
     <div class="modal-head"><h3>Scan Me</h3><button class="close" id="closeModal">×</button></div>
-    <p style="color:var(--muted);font-size:12px">Point your phone camera at the QR preview, or use the generated image below to verify it with a QR scanner.</p>
-    <div id="modalQr" style="background:#fff;border-radius:10px;padding:10px;display:grid;place-items:center"></div>
+    <p style="color:var(--muted);font-size:12px">Use your phone camera or any QR scanner to verify the generated code.</p>
+    <div id="modalQr"></div>
     <div class="scan-result" id="scanResult">QR content is ready to scan.</div>
   </div>
 </div>
 
 <script>
 (() => {
-  "use strict";
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 
-  const $ = s => document.querySelector(s);
-  const $$ = s => [...document.querySelectorAll(s)];
+const types=[
+ ["url","🔗","URL","Website link"],["text","▤","Text","Plain text"],["wifi","⌁","WiFi","WiFi network"],
+ ["vcard","▦","vCard","Contact details"],["email","✉","Email","Email address"],["sms","▣","SMS","Text message"],
+ ["whatsapp","◉","WhatsApp","WhatsApp chat"],["social","▦","Social Media","Social profile links"],
+ ["video","▶","Video","Video link"],["files","▧","Files","Upload / file link"],["location","⌖","Location","Map location"],
+ ["phone","☎","Phone","Phone number"],["event","▣","Event","Event details"],["app","▱","App Link","Application link"]
+];
 
-  const types = [
-    ["url","🔗","URL","Website link"],
-    ["text","▤","Text","Plain text"],
-    ["wifi","⌁","WiFi","WiFi network"],
-    ["vcard","▦","vCard","Contact details"],
-    ["email","✉","Email","Email address"],
-    ["sms","▣","SMS","Text message"],
-    ["whatsapp","◉","WhatsApp","WhatsApp chat"],
-    ["social","▦","Social Media","Social profile links"],
-    ["video","▶","Video","Video link"],
-    ["files","▧","Files","Upload / file link"],
-    ["location","⌖","Location","Map location"],
-    ["phone","☎","Phone","Phone number"],
-    ["event","▣","Event","Event details"],
-    ["app","▱","App Link","Application link"]
-  ];
+const examples={
+ url:"https://example.com",text:"Hello from Pro QR Generator!",wifi:"WIFI:T:WPA;S:MyWiFi;P:password123;;",
+ vcard:"BEGIN:VCARD\nVERSION:3.0\nFN:John Doe\nTEL:+923001234567\nEMAIL:john@example.com\nEND:VCARD",
+ email:"mailto:hello@example.com?subject=Hello&body=Thanks%20for%20contacting%20us.",
+ sms:"SMSTO:+923001234567:Hello from Pro QR Generator!",whatsapp:"https://wa.me/923001234567?text=Hello%20there",
+ social:"https://instagram.com/",video:"https://www.youtube.com/",files:"https://example.com/my-file.pdf",
+ location:"geo:31.5204,74.3587",phone:"tel:+923001234567",
+ event:"BEGIN:VEVENT\nSUMMARY:Pro QR Event\nDTSTART:20261201T100000\nDTEND:20261201T120000\nLOCATION:Lahore\nEND:VEVENT",
+ app:"https://example.com/app"
+};
 
-  const examples = {
-    url: "https://example.com",
-    text: "Hello from Pro QR Generator!",
-    wifi: "WIFI:T:WPA;S:MyWiFi;P:password123;;",
-    vcard: "BEGIN:VCARD\\nVERSION:3.0\\nFN:John Doe\\nTEL:+923001234567\\nEMAIL:john@example.com\\nEND:VCARD",
-    email: "mailto:hello@example.com?subject=Hello&body=Thanks%20for%20contacting%20us.",
-    sms: "SMSTO:+923001234567:Hello from Pro QR Generator!",
-    whatsapp: "https://wa.me/923001234567?text=Hello%20there",
-    social: "https://instagram.com/",
-    video: "https://www.youtube.com/",
-    files: "https://example.com/my-file.pdf",
-    location: "geo:31.5204,74.3587",
-    phone: "tel:+923001234567",
-    event: "BEGIN:VEVENT\\nSUMMARY:Pro QR Event\\nDTSTART:20261201T100000\\nDTEND:20261201T120000\\nLOCATION:Lahore\\nEND:VEVENT",
-    app: "https://example.com/app"
-  };
+let state={
+ type:"url",logo:null,logoSize:22,dotType:"square",cornerType:"square",cornerDot:"square",frame:"none",
+ fg:"#6C25FF",bg:"#FFFFFF",size:500,ec:"M",content:"https://example.com"
+};
+let qr=null,heroQR=null,heroDepth=null,modalQR=null;
+const storageKey="proQrHistoryV3";
 
-  let state = {
-    type:"url", logo:null, dotType:"square", cornerType:"square", cornerDot:"square",
-    frame:"none", fg:"#6C25FF", bg:"#FFFFFF", size:500, ec:"M", content:"https://example.com"
-  };
+const toast=msg=>{
+ const el=$("#toast");el.textContent=msg;el.classList.add("show");
+ clearTimeout(window.__toast);window.__toast=setTimeout(()=>el.classList.remove("show"),2400);
+};
+const getHistory=()=>{try{return JSON.parse(localStorage.getItem(storageKey)||"[]")}catch{return[]}};
+const saveHistory=a=>localStorage.setItem(storageKey,JSON.stringify(a));
+const typeLabel=id=>(types.find(t=>t[0]===id)||types[0])[2];
+const esc=s=>String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+const normalizeUrl=s=>{s=(s||"").trim();return !s?"":/^(https?:|mailto:|tel:|geo:)/i.test(s)?s:"https://"+s};
+const escapeWifi=s=>(s||"").replace(/([\\;,:"])/g,"\\$1");
 
-  let qr = null;
-  let heroQR = null;
-  let modalQR = null;
+function field(id,label,placeholder,value="",type="text"){
+ return `<div class="field"><label>${label}</label><input id="${id}" type="${type}" placeholder="${esc(placeholder)}" value="${esc(value)}"></div>`;
+}
 
-  const toast = (msg) => {
-    const el = $("#toast"); el.textContent = msg; el.classList.add("show");
-    clearTimeout(window.__toast); window.__toast = setTimeout(()=>el.classList.remove("show"),2400);
-  };
+function initTypes(){
+ const side=$("#typeSidebar");
+ types.forEach((t,i)=>{
+  const b=document.createElement("button");
+  b.className="type-btn"+(i===0?" active":"");b.dataset.type=t[0];
+  b.innerHTML=`<span class="type-icon">${t[1]}</span><span class="type-text"><strong>${t[2]}</strong><small>${t[3]}</small></span>`;
+  b.onclick=()=>setType(t[0]);side.appendChild(b);
+  const o=document.createElement("option");o.value=t[0];o.textContent=t[2];$("#historyType").appendChild(o);
+ });
+}
 
-  const storageKey = "proQrHistoryV2";
-  const getHistory = () => { try{return JSON.parse(localStorage.getItem(storageKey)||"[]")}catch{return[]} };
-  const saveHistory = arr => localStorage.setItem(storageKey,JSON.stringify(arr));
+function setType(type){
+ state.type=type;state.content=examples[type]||"";
+ $$(".type-btn").forEach(b=>b.classList.toggle("active",b.dataset.type===type));
+ renderContentForm();updateQR();
+}
 
-  function typeLabel(id){ return (types.find(t=>t[0]===id)||types[0])[2]; }
+function renderContentForm(){
+ let h="";
+ switch(state.type){
+ case"url":h=`<div class="form-section"><h3>Content</h3>${field("c1","Website URL","https://example.com",state.content)}</div>`;break;
+ case"text":h=`<div class="form-section"><h3>Content</h3><div class="field"><label>Plain Text</label><textarea id="c1" placeholder="Enter your text">${esc(state.content)}</textarea></div></div>`;break;
+ case"wifi":h=`<div class="form-section"><h3>WiFi Details</h3><div class="form-grid">${field("c1","Network Name (SSID)","MyWiFi","MyWiFi")}${field("c2","Password","••••••••","password123","password")}</div><div class="form-grid" style="margin-top:10px"><div class="field"><label>Security</label><select id="c3"><option>WPA</option><option>WEP</option><option>nopass</option></select></div><div class="field"><label>Hidden Network</label><select id="c4"><option value="false">No</option><option value="true">Yes</option></select></div></div></div>`;break;
+ case"vcard":h=`<div class="form-section"><h3>Contact Information</h3><div class="form-grid">${field("c1","Full Name","John Doe","John Doe")}${field("c2","Phone","+92 300 1234567","+923001234567","tel")}${field("c3","Email","john@example.com","john@example.com","email")}${field("c4","Organization","Company","Company")}</div></div>`;break;
+ case"email":h=`<div class="form-section"><h3>Email Address</h3>${field("c1","To","hello@example.com","hello@example.com","email")}<div class="form-grid" style="margin-top:10px">${field("c2","Subject","Subject","Hello")}${field("c3","Message","Message","Thanks for contacting us.")}</div></div>`;break;
+ case"sms":h=`<div class="form-section"><h3>SMS Message</h3>${field("c1","Phone Number","+923001234567","+923001234567","tel")}<div class="field" style="margin-top:10px"><label>Message</label><textarea id="c2">Hello from Pro QR Generator!</textarea></div></div>`;break;
+ case"whatsapp":h=`<div class="form-section"><h3>WhatsApp Chat</h3>${field("c1","Phone Number (country code)","923001234567","923001234567","tel")}<div class="field" style="margin-top:10px"><label>Pre-filled Message</label><textarea id="c2">Hello! I found you through your QR code.</textarea></div></div>`;break;
+ case"social":h=`<div class="form-section"><h3>Social Profile</h3><div class="form-grid">${field("c1","Platform URL","https://instagram.com/yourname","https://instagram.com/yourname")}${field("c2","Display Name","Your profile","Your Social Profile")}</div></div>`;break;
+ case"video":h=`<div class="form-section"><h3>Video Link</h3>${field("c1","Video URL","https://youtube.com/watch?v=...","https://www.youtube.com/")}</div>`;break;
+ case"files":h=`<div class="form-section"><h3>File / Share Link</h3>${field("c1","Public File URL","https://example.com/file.pdf","https://example.com/file.pdf")}<div class="helper">A QR code stores a link, not the file itself. Use a public file URL.</div></div>`;break;
+ case"location":h=`<div class="form-section"><h3>Location</h3><div class="form-grid">${field("c1","Latitude","31.5204","31.5204","number")}${field("c2","Longitude","74.3587","74.3587","number")}</div></div>`;break;
+ case"phone":h=`<div class="form-section"><h3>Phone Number</h3>${field("c1","Phone Number","+923001234567","+923001234567","tel")}</div>`;break;
+ case"event":h=`<div class="form-section"><h3>Event Details</h3><div class="form-grid">${field("c1","Event Title","Meeting","Pro QR Event")}${field("c2","Location","Lahore","Lahore")}</div><div class="form-grid" style="margin-top:10px">${field("c3","Start","2026-12-01T10:00","2026-12-01T10:00","datetime-local")}${field("c4","End","2026-12-01T12:00","2026-12-01T12:00","datetime-local")}</div></div>`;break;
+ case"app":h=`<div class="form-section"><h3>Application Link</h3>${field("c1","App / Store URL","https://example.com/app","https://example.com/app")}</div>`;break;
+ }
+ $("#contentForm").innerHTML=h;
+ ["c1","c2","c3","c4"].forEach(id=>{const el=$("#"+id);if(el)el.addEventListener("input",updateQR)});
+}
 
-  function initTypes(){
-    const side = $("#typeSidebar");
-    types.forEach((t,i)=>{
-      const b=document.createElement("button");
-      b.className="type-btn"+(i===0?" active":"");
-      b.dataset.type=t[0];
-      b.innerHTML=`<span class="type-icon">${t[1]}</span><span class="type-text"><strong>${t[2]}</strong><small>${t[3]}</small></span>`;
-      b.onclick=()=>setType(t[0]);
-      side.appendChild(b);
+function buildData(){
+ const v=id=>$("#"+id)?.value?.trim()||"";
+ switch(state.type){
+ case"url":return normalizeUrl(v("c1"));
+ case"text":return v("c1");
+ case"wifi":return `WIFI:T:${v("c3")||"WPA"};S:${escapeWifi(v("c1"))};P:${escapeWifi(v("c2"))};H:${v("c4")==="true"?"true":"false"};;`;
+ case"vcard":return `BEGIN:VCARD\nVERSION:3.0\nFN:${v("c1")}\nTEL:${v("c2")}\nEMAIL:${v("c3")}\nORG:${v("c4")}\nEND:VCARD`;
+ case"email":return `mailto:${v("c1")}?subject=${encodeURIComponent(v("c2"))}&body=${encodeURIComponent(v("c3"))}`;
+ case"sms":return `SMSTO:${v("c1")}:${v("c2")}`;
+ case"whatsapp":return `https://wa.me/${v("c1").replace(/\D/g,"")}?text=${encodeURIComponent(v("c2"))}`;
+ case"social":return normalizeUrl(v("c1"));
+ case"video":return normalizeUrl(v("c1"));
+ case"files":return normalizeUrl(v("c1"));
+ case"location":return `geo:${v("c1")},${v("c2")}`;
+ case"phone":return `tel:${v("c1")}`;
+ case"event":return `BEGIN:VEVENT\nVERSION:2.0\nSUMMARY:${v("c1")}\nLOCATION:${v("c2")}\nDTSTART:${toIcs(v("c3"))}\nDTEND:${toIcs(v("c4"))}\nEND:VEVENT`;
+ case"app":return normalizeUrl(v("c1"));
+ default:return state.content;
+ }
+}
+function toIcs(s){return s?(s.replace(/[-:]/g,"")+"00"):""}
 
-      const opt=document.createElement("option"); opt.value=t[0]; opt.textContent=t[2]; $("#historyType").appendChild(opt);
-    });
-  }
+function optionButtons(){
+ const dot=[["square","■"],["dots","●"],["rounded","●"],["extra-rounded","◉"]];
+ const corner=[["square","□"],["extra-rounded","▢"],["dot","◌"],["classy","▦"]];
+ const cDot=[["square","■"],["dot","●"],["rounded","●"],["extra-rounded","◉"]];
+ const frames=[["none","None"],["scan","Scan Me"],["label","Label"]];
+ $("#dotStyleOptions").innerHTML=dot.map(x=>`<button class="option ${state.dotType===x[0]?"active":""}" data-v="${x[0]}">${x[1]}</button>`).join("");
+ $("#cornerStyleOptions").innerHTML=corner.map(x=>`<button class="option ${state.cornerType===x[0]?"active":""}" data-v="${x[0]}">${x[1]}</button>`).join("");
+ $("#cornerDotOptions").innerHTML=cDot.map(x=>`<button class="option ${state.cornerDot===x[0]?"active":""}" data-v="${x[0]}">${x[1]}</button>`).join("");
+ $("#frameOptions").innerHTML=frames.map(x=>`<button class="option ${state.frame===x[0]?"active":""}" data-v="${x[0]}">${x[1]}</button>`).join("");
+ $$("#dotStyleOptions .option").forEach(b=>b.onclick=()=>{state.dotType=b.dataset.v;optionButtons();updateQR()});
+ $$("#cornerStyleOptions .option").forEach(b=>b.onclick=()=>{state.cornerType=b.dataset.v;optionButtons();updateQR()});
+ $$("#cornerDotOptions .option").forEach(b=>b.onclick=()=>{state.cornerDot=b.dataset.v;optionButtons();updateQR()});
+ $$("#frameOptions .option").forEach(b=>b.onclick=()=>{state.frame=b.dataset.v;optionButtons();updateQR()});
+}
 
-  function setType(type){
-    state.type=type; state.content=examples[type]||"";
-    $$(".type-btn").forEach(b=>b.classList.toggle("active",b.dataset.type===type));
-    renderContentForm();
-    updateQR();
-  }
+function makeQrOptions(data,size=500){
+ return {
+  width:size,height:size,type:"canvas",data:data||" ",
+  image:state.logo||undefined,
+  imageOptions:{crossOrigin:"anonymous",margin:8,imageSize:state.logoSize/100,hideBackgroundDots:true},
+  dotsOptions:{color:state.fg,type:state.dotType},
+  cornersSquareOptions:{color:state.fg,type:state.cornerType},
+  cornersDotOptions:{color:state.fg,type:state.cornerDot},
+  backgroundOptions:{color:state.bg},
+  qrOptions:{errorCorrectionLevel:state.ec},
+  margin:0
+ };
+}
 
-  function field(id,label,placeholder,value="",type="text"){
-    return `<div class="field"><label>${label}</label><input id="${id}" type="${type}" placeholder="${placeholder}" value="${escapeHtml(value)}"></div>`;
-  }
-  function escapeHtml(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function updateQR(){
+ const data=buildData();state.content=data;
+ const options=makeQrOptions(data,Number(state.size));
+ if(!qr)qr=new QRCodeStyling(options);else qr.update(options);
+ const holder=$("#qrPreview");holder.innerHTML="";qr.append(holder);
+ holder.querySelectorAll("canvas,svg").forEach(x=>{x.style.maxWidth="100%";x.style.height="auto"});
+ const oldFrame=holder.parentElement.querySelector(".qr-frame-label");if(oldFrame)oldFrame.remove();
+ if(state.frame==="scan"||state.frame==="label"){
+  const el=document.createElement("div");el.className="qr-frame-label";el.style.cssText="text-align:center;margin-top:7px;font-weight:800;color:#c6ccdd;font-size:10px";
+  el.textContent=state.frame==="scan"?"▣ SCAN ME":"Scan Me";holder.parentElement.appendChild(el);
+ }
+ if(!heroQR){
+  heroQR=new QRCodeStyling({width:292,height:292,data:"https://example.com",dotsOptions:{color:"#6c25ff",type:"rounded"},cornersSquareOptions:{color:"#6c25ff",type:"extra-rounded"},cornersDotOptions:{color:"#6c25ff",type:"dot"},backgroundOptions:{color:"#fff"},qrOptions:{errorCorrectionLevel:"M"},margin:0});
+  heroQR.append($("#heroQR"));
+  heroDepth=new QRCodeStyling({width:292,height:292,data:"https://example.com",dotsOptions:{color:"#4820b8",type:"rounded"},cornersSquareOptions:{color:"#4820b8",type:"extra-rounded"},cornersDotOptions:{color:"#4820b8",type:"dot"},backgroundOptions:{color:"#efe8ff"},qrOptions:{errorCorrectionLevel:"M"},margin:0});
+  heroDepth.append($("#heroQRDepth"));
+ }
+ if(modalQR){
+  const m=$("#modalQr");m.innerHTML="";modalQR=new QRCodeStyling(makeQrOptions(data,300));modalQR.append(m);
+ }
+}
 
-  function renderContentForm(){
-    let h="";
-    switch(state.type){
-      case "url": h=`<div class="form-section"><h3>Content</h3>${field("c1","Website URL","https://example.com",state.content)}</div>`; break;
-      case "text": h=`<div class="form-section"><h3>Content</h3><div class="field"><label>Plain Text</label><textarea id="c1" placeholder="Enter your text">${escapeHtml(state.content)}</textarea></div></div>`; break;
-      case "wifi": h=`<div class="form-section"><h3>WiFi Details</h3><div class="form-grid">${field("c1","Network Name (SSID)","MyWiFi","MyWiFi")}${field("c2","Password","••••••••","password123","password")}</div><div class="form-grid" style="margin-top:12px"><div class="field"><label>Security</label><select id="c3"><option>WPA</option><option>WEP</option><option>nopass</option></select></div><div class="field"><label>Hidden Network</label><select id="c4"><option value="false">No</option><option value="true">Yes</option></select></div></div></div>`; break;
-      case "vcard": h=`<div class="form-section"><h3>Contact Information</h3><div class="form-grid">${field("c1","Full Name","John Doe","John Doe")}${field("c2","Phone","+92 300 1234567","+923001234567","tel")}${field("c3","Email","john@example.com","john@example.com","email")}${field("c4","Organization","Company","Company")}</div></div>`; break;
-      case "email": h=`<div class="form-section"><h3>Email Address</h3>${field("c1","To","hello@example.com","hello@example.com","email")}<div class="form-grid" style="margin-top:12px">${field("c2","Subject","Subject","Hello")}${field("c3","Message","Message","Thanks for contacting us.")}</div></div>`; break;
-      case "sms": h=`<div class="form-section"><h3>SMS Message</h3>${field("c1","Phone Number","+923001234567","+923001234567","tel")}<div class="field" style="margin-top:12px"><label>Message</label><textarea id="c2">Hello from Pro QR Generator!</textarea></div></div>`; break;
-      case "whatsapp": h=`<div class="form-section"><h3>WhatsApp Chat</h3>${field("c1","Phone Number (country code)","923001234567","923001234567","tel")}<div class="field" style="margin-top:12px"><label>Pre-filled Message</label><textarea id="c2">Hello! I found you through your QR code.</textarea></div></div>`; break;
-      case "social": h=`<div class="form-section"><h3>Social Profile</h3><div class="form-grid">${field("c1","Platform URL","https://instagram.com/yourname","https://instagram.com/yourname")}${field("c2","Display Name","Your profile","Your Social Profile")}</div></div>`; break;
-      case "video": h=`<div class="form-section"><h3>Video Link</h3>${field("c1","Video URL","https://youtube.com/watch?v=...","https://www.youtube.com/")}</div>`; break;
-      case "files": h=`<div class="form-section"><h3>File / Share Link</h3>${field("c1","Public File URL","https://example.com/file.pdf","https://example.com/file.pdf")}<div class="helper">A QR code cannot host a file by itself. Use a public URL (Google Drive, OneDrive, your website, etc.).</div></div>`; break;
-      case "location": h=`<div class="form-section"><h3>Location</h3><div class="form-grid">${field("c1","Latitude","31.5204","31.5204","number")}${field("c2","Longitude","74.3587","74.3587","number")}</div></div>`; break;
-      case "phone": h=`<div class="form-section"><h3>Phone Number</h3>${field("c1","Phone Number","+923001234567","+923001234567","tel")}</div>`; break;
-      case "event": h=`<div class="form-section"><h3>Event Details</h3><div class="form-grid">${field("c1","Event Title","Meeting","Pro QR Event")}${field("c2","Location","Lahore","Lahore")}</div><div class="form-grid" style="margin-top:12px">${field("c3","Start","2026-12-01T10:00","2026-12-01T10:00","datetime-local")}${field("c4","End","2026-12-01T12:00","2026-12-01T12:00","datetime-local")}</div></div>`; break;
-      case "app": h=`<div class="form-section"><h3>Application Link</h3>${field("c1","App / Store URL","https://example.com/app","https://example.com/app")}</div>`; break;
-    }
-    $("#contentForm").innerHTML=h;
-    ["c1","c2","c3","c4"].forEach(id=>{const el=$("#"+id);if(el)el.addEventListener("input",updateQR)});
-  }
+function bindColors(){
+ const pairs=[["fgColor","fgText","fg"],["bgColor","bgText","bg"]];
+ pairs.forEach(([a,b,key])=>{
+  $("#"+a).oninput=e=>{state[key]=e.target.value;$("#"+b).value=e.target.value.toUpperCase();updateQR()};
+  $("#"+b).oninput=e=>{let v=e.target.value.trim();if(/^#[0-9a-f]{6}$/i.test(v)){state[key]=v;$("#"+a).value=v;updateQR()}};
+ });
+ const fg=["#6C25FF","#1F5BFF","#10B981","#EC4899","#F97316","#111827"];
+ const bg=["#FFFFFF","#F5F7FF","#FFF8EA","#E9FFFA","#EAF4FF","#0B1024"];
+ $("#fgSwatches").innerHTML=fg.map(c=>`<span class="swatch" title="${c}" style="background:${c}"></span>`).join("");
+ $("#bgSwatches").innerHTML=bg.map(c=>`<span class="swatch" title="${c}" style="background:${c}"></span>`).join("");
+ $$("#fgSwatches .swatch").forEach(s=>s.onclick=()=>{state.fg=s.title;$("#fgColor").value=s.title;$("#fgText").value=s.title;updateQR()});
+ $$("#bgSwatches .swatch").forEach(s=>s.onclick=()=>{state.bg=s.title;$("#bgColor").value=s.title;$("#bgText").value=s.title;updateQR()});
+ $("#sizeRange").oninput=e=>{state.size=+e.target.value;$("#sizeValue").textContent=state.size+"px";updateQR()};
+ $("#logoRange").oninput=e=>{state.logoSize=+e.target.value;$("#logoValue").textContent=state.logoSize+"%";updateQR()};
+ $("#errorCorrection").onchange=e=>{state.ec=e.target.value;updateQR()};
+ $("#logoInput").onchange=e=>{
+  const file=e.target.files?.[0];if(!file)return;
+  if(file.size>2*1024*1024){toast("Logo must be 2MB or smaller.");e.target.value="";return}
+  const reader=new FileReader();reader.onload=()=>{state.logo=reader.result;updateQR()};reader.readAsDataURL(file);
+ };
+}
 
-  function buildData(){
-    const v=id=>$("#"+id)?.value?.trim()||"";
-    switch(state.type){
-      case "url": return normalizeUrl(v("c1"));
-      case "text": return v("c1");
-      case "wifi": return `WIFI:T:${v("c3")||"WPA"};S:${escapeWifi(v("c1"))};P:${escapeWifi(v("c2"))};H:${v("c4")==="true"?"true":"false"};;`;
-      case "vcard": return `BEGIN:VCARD\\nVERSION:3.0\\nFN:${v("c1")}\\nTEL:${v("c2")}\\nEMAIL:${v("c3")}\\nORG:${v("c4")}\\nEND:VCARD`;
-      case "email": return `mailto:${v("c1")}?subject=${encodeURIComponent(v("c2"))}&body=${encodeURIComponent(v("c3"))}`;
-      case "sms": return `SMSTO:${v("c1")}:${v("c2")}`;
-      case "whatsapp": return `https://wa.me/${v("c1").replace(/\\D/g,"")}?text=${encodeURIComponent(v("c2"))}`;
-      case "social": return normalizeUrl(v("c1"));
-      case "video": return normalizeUrl(v("c1"));
-      case "files": return normalizeUrl(v("c1"));
-      case "location": return `geo:${v("c1")},${v("c2")}`;
-      case "phone": return `tel:${v("c1")}`;
-      case "event": return `BEGIN:VEVENT\\nVERSION:2.0\\nSUMMARY:${v("c1")}\\nLOCATION:${v("c2")}\\nDTSTART:${toIcs(v("c3"))}\\nDTEND:${toIcs(v("c4"))}\\nEND:VEVENT`;
-      case "app": return normalizeUrl(v("c1"));
-      default:return state.content;
-    }
-  }
-  function escapeWifi(s){return s.replace(/([\\;,:"])/g,"\\\\$1")}
-  function normalizeUrl(s){if(!s)return ""; return /^(https?:|mailto:|tel:|geo:)/i.test(s)?s:"https://"+s}
-  function toIcs(s){return s ? s.replace(/[-:]/g,"")+"00" : ""}
+async function download(format){
+ if(!qr){toast("Create a QR code first.");return}
+ const name=`pro-qr-${state.type}-${Date.now()}`;
+ if(format==="pdf"){
+  const blob=await qr.getRawData("png"),url=URL.createObjectURL(blob),img=new Image();
+  img.onload=()=>{
+   const {jsPDF}=window.jspdf;const doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"});
+   doc.setFillColor(8,10,28);doc.rect(0,0,210,297,"F");
+   doc.setTextColor(255,255,255);doc.setFontSize(20);doc.text("Pro QR Generator",20,24);
+   doc.setTextColor(180,186,205);doc.setFontSize(10);doc.text(typeLabel(state.type),20,32);
+   doc.addImage(img,"PNG",35,55,140,140);doc.setTextColor(190,196,214);doc.text("Generated QR Code",20,265);
+   doc.save(name+".pdf");URL.revokeObjectURL(url);recordDownload();toast("PDF downloaded.");
+  };img.src=url;return;
+ }
+ await qr.download({name,extension:format});recordDownload();toast(`${format.toUpperCase()} downloaded.`);
+}
 
-  function optionButtons(){
-    const dot=[["square","■"],["dots","●"],["rounded","●"],["extra-rounded","◉"]];
-    const corner=[["square","□"],["extra-rounded","▢"],["dot","◌"],["classy","▦"]];
-    const cDot=[["square","■"],["dot","●"],["rounded","●"],["extra-rounded","◉"]];
-    const frames=[["none","None"],["scan","Scan Me"],["label","Label"]];
-    $("#dotStyleOptions").innerHTML=dot.map(x=>`<button class="option ${state.dotType===x[0]?"active":""}" data-v="${x[0]}">${x[1]}</button>`).join("");
-    $("#cornerStyleOptions").innerHTML=corner.map(x=>`<button class="option ${state.cornerType===x[0]?"active":""}" data-v="${x[0]}">${x[1]}</button>`).join("");
-    $("#cornerDotOptions").innerHTML=cDot.map(x=>`<button class="option ${state.cornerDot===x[0]?"active":""}" data-v="${x[0]}">${x[1]}</button>`).join("");
-    $("#frameOptions").innerHTML=frames.map(x=>`<button class="option ${state.frame===x[0]?"active":""}" data-v="${x[0]}">${x[1]}</button>`).join("");
-    $$("#dotStyleOptions .option").forEach(b=>b.onclick=()=>{state.dotType=b.dataset.v;optionButtons();updateQR()});
-    $$("#cornerStyleOptions .option").forEach(b=>b.onclick=()=>{state.cornerType=b.dataset.v;optionButtons();updateQR()});
-    $$("#cornerDotOptions .option").forEach(b=>b.onclick=()=>{state.cornerDot=b.dataset.v;optionButtons();updateQR()});
-    $$("#frameOptions .option").forEach(b=>b.onclick=()=>{state.frame=b.dataset.v;optionButtons();updateQR()});
-  }
+function recordDownload(){
+ const h=getHistory(),now=new Date().toISOString();
+ const existing=h.find(x=>x.data===state.content&&x.type===state.type);
+ if(existing){existing.downloads=(existing.downloads||0)+1;existing.updated=now}
+ else h.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name:typeLabel(state.type),type:state.type,data:state.content,created:now,downloads:1});
+ saveHistory(h.slice(0,100));updateStats();renderHistory();
+}
+function updateStats(){const base=10000+getHistory().reduce((n,x)=>n+(x.downloads||0),0);$("#statCreated").textContent=base.toLocaleString()+"+"}
 
-  function makeQrOptions(data,size=500){
-    return {
-      width:size,height:size,type:"canvas",data:data||" ",
-      image:state.logo||undefined,imageOptions:{crossOrigin:"anonymous",margin:8,imageSize:0.22,hideBackgroundDots:true},
-      dotsOptions:{color:state.fg,type:state.dotType},
-      cornersSquareOptions:{color:state.fg,type:state.cornerType},
-      cornersDotOptions:{color:state.fg,type:state.cornerDot},
-      backgroundOptions:{color:state.bg},
-      qrOptions:{errorCorrectionLevel:state.ec}
-    };
-  }
+function renderHistory(){
+ const body=$("#historyBody"),q=($("#historySearch").value||"").toLowerCase(),t=$("#historyType").value;
+ const h=getHistory().filter(x=>(x.name+" "+x.type+" "+x.data).toLowerCase().includes(q)&&(t==="all"||x.type===t));
+ if(!h.length){body.innerHTML=`<tr><td colspan="5"><div class="empty">No QR codes saved yet. Create one and download it to see it here.</div></td></tr>`;return}
+ body.innerHTML=h.map(x=>`<tr><td><strong>${esc(x.name)}</strong></td><td><span class="badge">${esc(typeLabel(x.type))}</span></td><td>${new Date(x.created).toLocaleString()}</td><td>${x.downloads||0}</td><td><button class="action" data-view="${x.id}">◉</button><button class="action" data-redownload="${x.id}">⇩</button><button class="action" data-delete="${x.id}">⋮</button></td></tr>`).join("");
+ $$("[data-delete]").forEach(b=>b.onclick=()=>{saveHistory(getHistory().filter(x=>x.id!==b.dataset.delete));renderHistory();updateStats();toast("QR removed from history.")});
+ $$("[data-redownload]").forEach(b=>b.onclick=()=>{const x=getHistory().find(y=>y.id===b.dataset.redownload);if(x){state.type=x.type;setType(x.type);setTimeout(()=>download("png"),80)}});
+ $$("[data-view]").forEach(b=>b.onclick=()=>{const x=getHistory().find(y=>y.id===b.dataset.view);if(x){state.type=x.type;setType(x.type);$("#scanBtn").click()}});
+}
 
-  function updateQR(){
-    const data=buildData();
-    state.content=data;
-    const options=makeQrOptions(data,Number(state.size));
-    if(!qr) qr=new QRCodeStyling(options); else qr.update(options);
-    const holder=$("#qrPreview"); holder.innerHTML=""; qr.append(holder);
-    if(state.frame==="scan") holder.insertAdjacentHTML("afterend",`<div style="text-align:center;margin-top:8px"><span class="badge">▣ SCAN ME</span></div>`);
-    if(state.frame==="label") holder.insertAdjacentHTML("afterend",`<div style="text-align:center;margin-top:8px;font-weight:800;color:#c6ccdd">Scan Me</div>`);
-    if(!heroQR){
-      heroQR=new QRCodeStyling({
-        width:292,height:292,data:"https://example.com",
-        dotsOptions:{color:"#6c25ff",type:"rounded"},
-        cornersSquareOptions:{color:"#6c25ff",type:"extra-rounded"},
-        cornersDotOptions:{color:"#6c25ff",type:"dot"},
-        backgroundOptions:{color:"#fff"},
-        qrOptions:{errorCorrectionLevel:"M"},
-        margin:0
-      });
-      heroQR.append($("#heroQR"));
-      const depthQR=new QRCodeStyling({
-        width:292,height:292,data:"https://example.com",
-        dotsOptions:{color:"#4820b8",type:"rounded"},
-        cornersSquareOptions:{color:"#4820b8",type:"extra-rounded"},
-        cornersDotOptions:{color:"#4820b8",type:"dot"},
-        backgroundOptions:{color:"#efe8ff"},
-        qrOptions:{errorCorrectionLevel:"M"},
-        margin:0
-      });
-      depthQR.append($("#heroQRDepth"));
-    }
-    if(modalQR){
-      const m=$("#modalQr");m.innerHTML="";modalQR=new QRCodeStyling(makeQrOptions(data,300));modalQR.append(m);
-    }
-  }
+function showHome(){
+ $("#pageStudio").classList.remove("active");$("#pageHome").classList.add("active","page-transition");
+ window.scrollTo({top:0,behavior:"smooth"});history.pushState({page:"home"},"","#home");
+}
+function showStudio(){
+ $("#pageHome").classList.remove("active");$("#pageStudio").classList.add("active","page-transition");
+ $("#dashboard").classList.remove("active");$("#generatorView").classList.remove("hidden");
+ window.scrollTo({top:0,behavior:"smooth"});history.pushState({page:"studio"},"","#studio");
+}
+function showDashboard(){
+ showStudio();$("#generatorView").classList.add("hidden");$("#dashboard").classList.add("active");
+ renderHistory();$("#dashboard").scrollIntoView({behavior:"smooth"});
+}
 
-  function bindColors(){
-    const pairs=[["fgColor","fgText","fg"],["bgColor","bgText","bg"]];
-    pairs.forEach(([a,b,key])=>{
-      $("#"+a).oninput=e=>{state[key]=e.target.value;$("#"+b).value=e.target.value.toUpperCase();updateQR()};
-      $("#"+b).oninput=e=>{let v=e.target.value.trim();if(/^#[0-9a-f]{6}$/i.test(v)){state[key]=v;$("#"+a).value=v;updateQR()}};
-    });
-    const colors=["#6C25FF","#1F5BFF","#10B981","#EC4899","#F97316","#111827"];
-    $("#fgSwatches").innerHTML=colors.map(c=>`<span class="swatch" title="${c}" style="background:${c}"></span>`).join("");
-    $$("#fgSwatches .swatch").forEach(s=>s.onclick=()=>{state.fg=s.title;$("#fgColor").value=s.title;$("#fgText").value=s.title;updateQR()});
-    $("#sizeRange").oninput=e=>{state.size=+e.target.value;$("#sizeValue").textContent=state.size+"px";updateQR()};
-    $("#errorCorrection").onchange=e=>{state.ec=e.target.value;updateQR()};
-    $("#logoInput").onchange=e=>{
-      const file=e.target.files?.[0];if(!file)return;
-      if(file.size>2*1024*1024){toast("Logo must be 2MB or smaller.");e.target.value="";return}
-      const reader=new FileReader();reader.onload=()=>{state.logo=reader.result;updateQR()};reader.readAsDataURL(file);
-    };
-  }
+/* Buttons */
+$("#heroCreate").onclick=showStudio;$("#startBtn").onclick=showStudio;$("#ctaBtn").onclick=showStudio;$("#backHomeBtn").onclick=showHome;
+$("#newQrBtn").onclick=showStudio;
+$("#examplesBtn").onclick=()=>{showStudio();setType("wifi");toast("Example loaded: WiFi QR")};
+$("#signInBtn").onclick=()=>toast("This version works without an account. Sign-in can be connected to a backend later.");
+$("#mobileMenuBtn").onclick=()=>{const n=document.querySelector(".navlinks");n.style.display=n.style.display==="flex"?"none":"flex"};
+$("#historySearch").oninput=renderHistory;$("#historyType").onchange=renderHistory;
+$$(".download-btn").forEach(b=>b.onclick=()=>download(b.dataset.format));
+$("#downloadMain").onclick=()=>download("png");
+$("#scanBtn").onclick=()=>{
+ $("#modal").classList.add("show");const m=$("#modalQr");m.innerHTML="";
+ modalQR=new QRCodeStyling(makeQrOptions(state.content,300));modalQR.append(m);
+ $("#scanResult").textContent="Encoded content: "+state.content;
+};
+$("#closeModal").onclick=()=>$("#modal").classList.remove("show");
+$("#modal").onclick=e=>{if(e.target.id==="modal")$("#modal").classList.remove("show")};
+$("#analyticsBtn").onclick=()=>{const h=getHistory(),d=h.reduce((n,x)=>n+(x.downloads||0),0);toast(`Local analytics: ${h.length} saved codes · ${d} downloads`)};
+$("#myCodesBtn").onclick=()=>toast("Your saved QR codes are shown here.");
+$("#pricingLink").onclick=e=>{e.preventDefault();showStudio()};
+window.addEventListener("popstate",()=>location.hash==="#studio"?showStudio():showHome());
 
-  async function download(format){
-    if(!qr){toast("Create a QR code first.");return}
-    const name=`pro-qr-${state.type}-${Date.now()}`;
-    if(format==="pdf"){
-      const blob=await qr.getRawData("png");
-      const url=URL.createObjectURL(blob), img=new Image();
-      img.onload=()=>{
-        const {jsPDF}=window.jspdf;
-        const doc=new jsPDF({orientation:"portrait",unit:"mm",format:"a4"});
-        doc.setFillColor(8,10,28);doc.rect(0,0,210,297,"F");
-        doc.setTextColor(255,255,255);doc.setFontSize(20);doc.text("Pro QR Generator",20,24);
-        doc.setTextColor(180,186,205);doc.setFontSize(10);doc.text(typeLabel(state.type),20,32);
-        doc.addImage(img,"PNG",35,55,140,140);
-        doc.setTextColor(190,196,214);doc.text("Generated QR Code",20,265);
-        doc.save(name+".pdf");URL.revokeObjectURL(url);recordDownload();toast("PDF downloaded.");
-      };img.src=url;return;
-    }
-    await qr.download({name,extension:format});
-    recordDownload();toast(`${format.toUpperCase()} downloaded.`);
-  }
-
-  function recordDownload(){
-    const h=getHistory(), now=new Date().toISOString();
-    const existing=h.find(x=>x.data===state.content && x.type===state.type);
-    if(existing){existing.downloads=(existing.downloads||0)+1;existing.updated=now}
-    else h.unshift({id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name:typeLabel(state.type),type:state.type,data:state.content,created:now,downloads:1});
-    saveHistory(h.slice(0,100));updateStats();renderHistory();
-  }
-
-  function updateStats(){const base=10000+getHistory().reduce((n,x)=>n+(x.downloads||0),0);$("#statCreated").textContent=base.toLocaleString()+"+"}
-
-  function renderHistory(){
-    const body=$("#historyBody"), q=($("#historySearch").value||"").toLowerCase(), t=$("#historyType").value;
-    const h=getHistory().filter(x=>(x.name+" "+x.type+" "+x.data).toLowerCase().includes(q)&&(t==="all"||x.type===t));
-    if(!h.length){body.innerHTML=`<tr><td colspan="5"><div class="empty">No QR codes saved yet. Create one and download it to see it here.</div></td></tr>`;return}
-    body.innerHTML=h.map(x=>`<tr>
-      <td><strong>${escapeHtml(x.name)}</strong></td>
-      <td><span class="badge">${escapeHtml(typeLabel(x.type))}</span></td>
-      <td>${new Date(x.created).toLocaleString()}</td>
-      <td>${x.downloads||0}</td>
-      <td>
-        <button class="action" data-view="${x.id}" title="Preview">◉</button>
-        <button class="action" data-redownload="${x.id}" title="Download">⇩</button>
-        <button class="action" data-delete="${x.id}" title="Delete">⋮</button>
-      </td>
-    </tr>`).join("");
-    $$("[data-delete]").forEach(b=>b.onclick=()=>{saveHistory(getHistory().filter(x=>x.id!==b.dataset.delete));renderHistory();updateStats();toast("QR removed from history.")});
-    $$("[data-redownload]").forEach(b=>b.onclick=()=>{const x=getHistory().find(y=>y.id===b.dataset.redownload);if(x){state.type=x.type;setType(x.type);setTimeout(()=>download("png"),50)}});
-    $$("[data-view]").forEach(b=>b.onclick=()=>{const x=getHistory().find(y=>y.id===b.dataset.view);if(x){state.type=x.type;setType(x.type);$("#scanBtn").click()}});
-  }
-
-  function showHome(){
-    $("#pageStudio").classList.remove("active");
-    $("#pageHome").classList.add("active","page-transition");
-    window.scrollTo({top:0,behavior:"smooth"});
-    history.pushState({page:"home"},"","#home");
-  }
-  function showStudio(){
-    $("#pageHome").classList.remove("active");
-    $("#pageStudio").classList.add("active","page-transition");
-    $("#dashboard").classList.remove("active");
-    $("#generatorView").classList.remove("hidden");
-    window.scrollTo({top:0,behavior:"smooth"});
-    history.pushState({page:"studio"},"","#studio");
-  }
-  function showDashboard(){
-    showStudio();
-    $("#generatorView").classList.add("hidden");
-    $("#dashboard").classList.add("active");
-    renderHistory();
-    $("#dashboard").scrollIntoView({behavior:"smooth"});
-  }
-
-  // Buttons
-  $("#heroCreate").onclick=showStudio;
-  $("#startBtn").onclick=showStudio;
-  $("#ctaBtn").onclick=showStudio;
-  $("#backHomeBtn").onclick=showHome;
-  $("#newQrBtn").onclick=showGenerator;
-  $("#examplesBtn").onclick=()=>{showStudio();setType("wifi");toast("Example loaded: WiFi QR");};
-  $("#signInBtn").onclick=()=>toast("This single-file version works without an account. Sign-in can be connected to a backend later.");
-  $("#mobileMenuBtn").onclick=()=>document.querySelector(".navlinks").style.display=document.querySelector(".navlinks").style.display==="flex"?"none":"flex";
-
-  $("#historySearch").oninput=renderHistory;$("#historyType").onchange=renderHistory;
-
-  $$(".download-btn").forEach(b=>b.onclick=()=>download(b.dataset.format));
-
-  $("#scanBtn").onclick=()=>{
-    $("#modal").classList.add("show");
-    const m=$("#modalQr");m.innerHTML="";
-    modalQR=new QRCodeStyling(makeQrOptions(state.content,300));modalQR.append(m);
-    $("#scanResult").textContent="Encoded content: "+state.content;
-  };
-  $("#closeModal").onclick=()=>$("#modal").classList.remove("show");
-  $("#modal").onclick=e=>{if(e.target.id==="modal")$("#modal").classList.remove("show")};
-
-  $("#analyticsBtn").onclick=()=>{
-    const h=getHistory(), downloads=h.reduce((n,x)=>n+(x.downloads||0),0);
-    toast(`Local analytics: ${h.length} saved codes · ${downloads} downloads`);
-  };
-
-  $("#pricingLink").onclick=(e)=>{e.preventDefault();showStudio()};
-
-  window.addEventListener("popstate",()=>{
-    if(location.hash==="#studio") showStudio();
-    else showHome();
-  });
-
-  // Initialize
-  initTypes();optionButtons();bindColors();renderContentForm();updateQR();updateStats();renderHistory();
-  if(location.hash==="#studio") showStudio(); else showHome();
+/* Initialize */
+initTypes();optionButtons();bindColors();renderContentForm();updateQR();updateStats();renderHistory();
+if(location.hash==="#studio")showStudio();else showHome();
 })();
 </script>
 </body>
