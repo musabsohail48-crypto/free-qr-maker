@@ -4,25 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QRForge - Free QR Code Generator</title>
-    <!-- Hum external library use kar rahe hain taake code saaf rahay -->
     <script type="text/javascript" src="https://unpkg.com/qr-code-styling@1.5.0/lib/qr-code-styling.js"></script>
     <style>
-        /* Basic Styling (Tumhari pehli wali CSS yahan add ki hai) */
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f1f5f9; color: #333; margin: 0; padding: 20px; }
         .container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: row; gap: 40px; padding: 40px; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         .left-panel { flex: 1; }
         h1 { color: #1e40af; font-size: 2.5em; margin-bottom: 10px; }
         p { color: #64748b; line-height: 1.6; }
         
-        /* QR Code Box Styling */
+        /* Input aur Button ki styling */
+        .input-group { margin-top: 30px; }
+        .qr-input { width: 90%; padding: 15px; border: 2px solid #cbd5e1; border-radius: 8px; margin-bottom: 15px; font-size: 16px; outline: none; }
+        .qr-input:focus { border-color: #2563eb; }
+        .generate-btn { background: #2563eb; color: white; border: none; padding: 15px 30px; border-radius: 8px; cursor: pointer; font-size: 16px; font-weight: bold; width: 90%; transition: background 0.3s; }
+        .generate-btn:hover { background: #1d4ed8; }
+
+        /* QR Code Box ki styling */
         .right-panel { flex: 1; display: flex; justify-content: center; align-items: center; }
         .qr-preview-card { background-color: #ffffff; padding: 30px; border-radius: 24px; box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08); display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; max-width: 350px; }
         .qr-image-wrapper { background-color: #f8fafc; padding: 15px; border-radius: 16px; display: flex; align-items: center; justify-content: center; min-width: 250px; min-height: 250px; }
-        .qr-caption { margin-top: 20px; font-size: 14px; color: #64748b; font-weight: 500; }
         
-        /* Mobile ke liye theek karna */
         @media (max-width: 768px) {
             .container { flex-direction: column; padding: 20px; }
+            .qr-input, .generate-btn { width: 100%; }
         }
     </style>
 </head>
@@ -33,46 +37,64 @@
         <div class="left-panel">
             <h4>FAST • FREE • PROFESSIONAL</h4>
             <h1>Create a QR code<br><span style="color: #3b82f6;">in seconds.</span></h1>
-            <p>Generate QR codes for websites, text, Wi-Fi, email, phone, contacts, WhatsApp and locations.</p>
+            <p>Enter your website URL or text below to instantly generate a professional, custom QR code.</p>
+            
+            <!-- Ye box maine wapas add kar diya hai -->
+            <div class="input-group">
+                <input type="text" id="qr-url" class="qr-input" placeholder="Enter website link (e.g., google.com)">
+                <button onclick="generateQR()" class="generate-btn">Generate QR Code →</button>
+            </div>
         </div>
 
         <!-- Right Side: The Blue QR Code -->
         <div class="right-panel">
             <div class="qr-preview-card">
                 <div class="qr-image-wrapper" id="qr-output">
-                    <!-- Javascript is jagah par QR code banayega -->
+                    <!-- QR code yahan aayega -->
                 </div>
-                <p class="qr-caption">Sample generated code.</p>
             </div>
         </div>
     </div>
 
     <script>
-        // JS Code: Blue QR Code with Icon generate karna
+        // Default QR code ki setting
         const qrCode = new QRCodeStyling({
             width: 250,
             height: 250,
             type: "svg",
-            data: "https://yourwebsite.com",
+            data: "https://qrforge.com", // Default sample
             image: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Link_icon_%28closed%29_-_blue.svg", 
-            dotsOptions: {
-                color: "#2563eb", // Blue color
-                type: "rounded"
-            },
+            dotsOptions: { color: "#2563eb", type: "rounded" },
             backgroundOptions: { color: "#ffffff" },
             imageOptions: { crossOrigin: "anonymous", margin: 10 }
         });
 
-        // Page load hotay hi QR render karna
+        // Jab page load ho toh sample QR show ho jaye
         window.onload = () => {
             const qrContainer = document.getElementById("qr-output");
             if(qrContainer) {
-                qrContainer.innerHTML = ""; 
                 qrCode.append(qrContainer);
             }
         };
+
+        // Jab user 'Generate' button par click kare
+        function generateQR() {
+            const urlInput = document.getElementById("qr-url").value;
+            
+            // Agar box khali ho toh alert de
+            if(urlInput.trim() === "") {
+                alert("Please enter a valid URL or text!");
+                return;
+            }
+
+            // QR code ko naye link ke sath update kare
+            qrCode.update({
+                data: urlInput
+            });
+        }
     </script>
 
 </body>
 </html>
+
 
