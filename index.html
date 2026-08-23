@@ -1,317 +1,257 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pro QR Generator - Advanced Online QR Creator</title>
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <!-- FontAwesome for Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pro QR Generator — Professional QR Creator</title>
+<meta name="description" content="Create, customize and download professional QR codes instantly.">
+<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<style>
+  html{color-scheme:dark}
+  body{background:#070b17}
+  .glass{background:rgba(15,23,42,.78);backdrop-filter:blur(18px);border:1px solid rgba(148,163,184,.12)}
+  .glow{box-shadow:0 0 50px rgba(124,58,237,.12)}
+  .scrollbar::-webkit-scrollbar{width:6px}.scrollbar::-webkit-scrollbar-thumb{background:#334155;border-radius:99px}
+  input[type=color]{padding:3px}
+  .type-active{border-color:rgba(168,85,247,.7)!important;background:rgba(124,58,237,.13)!important}
+</style>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans flex flex-col items-center justify-between p-4 md:p-8 relative overflow-x-hidden">
+<body class="min-h-screen text-slate-100 font-sans overflow-x-hidden">
+<div class="fixed inset-0 pointer-events-none overflow-hidden">
+  <div class="absolute -top-40 left-10 w-96 h-96 bg-violet-600/10 blur-3xl rounded-full"></div>
+  <div class="absolute top-1/3 right-0 w-96 h-96 bg-cyan-500/8 blur-3xl rounded-full"></div>
+</div>
 
-    <!-- Background Glow Effects -->
-    <div class="absolute top-0 left-1/4 w-96 h-96 bg-purple-600/10 rounded-full blur-3xl pointer-events-none"></div>
-    <div class="absolute bottom-10 right-1/4 w-96 h-96 bg-cyan-600/10 rounded-full blur-3xl pointer-events-none"></div>
+<header class="sticky top-0 z-50 border-b border-slate-800/70 bg-slate-950/80 backdrop-blur-xl">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between gap-4">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-cyan-400 flex items-center justify-center shadow-lg">
+        <i class="fa-solid fa-qrcode text-lg"></i>
+      </div>
+      <div><div class="font-black tracking-tight">Pro QR Generator</div><div class="text-[10px] text-slate-500">Create • Customize • Download</div></div>
+    </div>
+    <nav class="hidden md:flex items-center gap-6 text-sm text-slate-400">
+      <a href="#generator" class="hover:text-white">Generator</a><a href="#history" class="hover:text-white">My QR Codes</a><a href="#features" class="hover:text-white">Features</a>
+    </nav>
+    <button onclick="scrollToId('generator')" class="px-4 py-2 rounded-xl bg-violet-600 hover:bg-violet-500 text-sm font-bold">Create QR</button>
+  </div>
+</header>
 
-    <!-- Main Wrapper -->
-    <div class="max-w-3xl w-full flex flex-col items-center z-10 space-y-6">
+<main class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+  <div class="glass rounded-2xl min-h-[90px] flex flex-col items-center justify-center text-center">
+    <span class="text-[10px] uppercase tracking-[.25em] text-cyan-400 font-bold mb-1">Advertisement Slot 1</span>
+    <span class="text-xs text-slate-600">Your ad can appear here</span>
+  </div>
 
-        <!-- 📢 AD SLOT 1: Top Leaderboard -->
-        <div class="w-full bg-slate-900/80 backdrop-blur-md border border-slate-800/80 rounded-xl p-4 text-center text-slate-400 flex flex-col items-center justify-center min-h-[90px] shadow-lg">
-            <span class="text-[10px] uppercase tracking-widest font-bold mb-1 text-emerald-400">Advertisement Slot 1</span>
-            <script type="text/javascript" src="//pl30981401.profitableratecpmnetwork.com/e7/6d/b9/e76db94628554e5cb994792cfd286dcc.js"></script>
+  <section class="grid lg:grid-cols-[1.15fr_.85fr] gap-6 items-stretch" id="generator">
+    <div class="glass glow rounded-3xl p-5 sm:p-7">
+      <div class="flex flex-wrap items-center justify-between gap-3 mb-6">
+        <div><div class="text-xs uppercase tracking-widest text-violet-400 font-bold">QR Studio</div><h1 class="text-2xl sm:text-3xl font-black mt-1">Create your QR code</h1></div>
+        <div class="px-3 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-bold"><i class="fa-solid fa-circle-check mr-1"></i> Ready</div>
+      </div>
+
+      <div class="grid sm:grid-cols-3 gap-2 mb-6">
+        <button id="step1" onclick="showSection(1)" class="step rounded-xl p-3 text-left bg-violet-500/10 border border-violet-500/40"><span class="text-[10px] text-violet-300">STEP 1</span><div class="text-xs font-bold mt-1">Choose type</div></button>
+        <button id="step2" onclick="showSection(2)" class="step rounded-xl p-3 text-left bg-slate-950/50 border border-slate-800"><span class="text-[10px] text-slate-500">STEP 2</span><div class="text-xs font-bold mt-1">Add content</div></button>
+        <button id="step3" onclick="showSection(3)" class="step rounded-xl p-3 text-left bg-slate-950/50 border border-slate-800"><span class="text-[10px] text-slate-500">STEP 3</span><div class="text-xs font-bold mt-1">Design & download</div></button>
+      </div>
+
+      <section id="section1">
+        <div class="flex items-center justify-between mb-3"><h2 class="font-bold">Select QR type</h2><span class="text-xs text-slate-500">15+ options</span></div>
+        <div id="typeGrid" class="grid sm:grid-cols-2 gap-2 max-h-[430px] overflow-y-auto scrollbar pr-1"></div>
+      </section>
+
+      <section id="section2" class="hidden">
+        <div class="flex items-center justify-between mb-5">
+          <button onclick="showSection(1)" class="text-xs text-violet-400 font-bold"><i class="fa-solid fa-arrow-left mr-1"></i> Types</button>
+          <span id="typeBadge" class="text-[10px] uppercase font-bold px-3 py-1 rounded-full bg-violet-500/10 text-violet-300">URL</span>
         </div>
+        <div id="contentForm" class="space-y-4"></div>
+        <div class="flex justify-end mt-6"><button onclick="showSection(3)" class="px-5 py-2.5 rounded-xl bg-violet-600 hover:bg-violet-500 text-sm font-bold">Continue to design <i class="fa-solid fa-arrow-right ml-2"></i></button></div>
+      </section>
 
-        <!-- Header / Brand with Exact Color Matching -->
-        <div class="text-center space-y-3 px-2">
-            <div class="inline-flex items-center space-x-2 bg-emerald-500/10 border border-emerald-500/20 px-3.5 py-1.5 rounded-full text-emerald-400 text-xs font-semibold shadow-sm">
-                <i class="fa-solid fa-qrcode"></i>
-                <span>Online QR Generator</span>
-            </div>
-            
-            <!-- Main Heading with Indigo-Purple-Pink Gradient on entire text -->
-            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-400 to-pink-500 drop-shadow-[0_2px_10px_rgba(168,85,247,0.3)]">Pro QR Code Generator</span>
-            </h1>
-
-            <!-- Subtitle with Generator's Emerald-Teal-Cyan Gradient on entire text -->
-            <p class="text-xs sm:text-sm md:text-base font-bold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 tracking-wide drop-shadow-[0_2px_8px_rgba(16,185,129,0.2)]">
-                ✨ Create a QR code in seconds! <span class="font-normal text-slate-400 text-xs sm:text-sm block sm:inline mt-1 sm:mt-0">Choose what you want to share: URLs, videos, social media, apps, and more!</span>
-            </p>
+      <section id="section3" class="hidden">
+        <div class="flex items-center justify-between mb-5">
+          <button onclick="showSection(2)" class="text-xs text-violet-400 font-bold"><i class="fa-solid fa-arrow-left mr-1"></i> Content</button>
+          <span class="text-xs text-emerald-400 font-bold">Live preview</span>
         </div>
-
-        <!-- Progress Steps Bar (Clickable) -->
-        <div class="w-full bg-slate-900/90 border border-slate-800 rounded-2xl p-4 flex items-center justify-between shadow-xl">
-            <div onclick="goToStep(1)" class="flex items-center space-x-2 cursor-pointer group">
-                <div id="step-ind-1" class="w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs shadow-lg">1</div>
-                <span class="text-xs font-semibold text-emerald-400 group-hover:underline">Select type</span>
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div class="bg-slate-950/60 rounded-2xl border border-slate-800 p-4 space-y-4">
+            <h3 class="font-bold text-sm">Colors & style</h3>
+            <div class="grid grid-cols-2 gap-3">
+              <label class="text-xs text-slate-400">Foreground<input id="fg" type="color" value="#7c3aed" oninput="generateQR()" class="mt-2 w-full h-10 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer"></label>
+              <label class="text-xs text-slate-400">Background<input id="bg" type="color" value="#ffffff" oninput="generateQR()" class="mt-2 w-full h-10 rounded-xl bg-slate-900 border border-slate-800 cursor-pointer"></label>
             </div>
-            <div class="h-0.5 flex-1 bg-slate-800 mx-2"></div>
-            <div onclick="goToStep(2)" class="flex items-center space-x-2 cursor-pointer group">
-                <div id="step-ind-2" class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center justify-center text-xs">2</div>
-                <span class="text-xs font-medium text-slate-400 group-hover:underline">Add content</span>
-            </div>
-            <div class="h-0.5 flex-1 bg-slate-800 mx-2"></div>
-            <div onclick="goToStep(3)" class="flex items-center space-x-2 cursor-pointer group">
-                <div id="step-ind-3" class="w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center justify-center text-xs">3</div>
-                <span class="text-xs font-medium text-slate-400 group-hover:underline">Design QR code</span>
-            </div>
+            <div><div class="text-xs text-slate-400 mb-2">Quick palettes</div><div id="palettes" class="flex flex-wrap gap-2"></div></div>
+            <label class="text-xs text-slate-400 block">QR size
+              <select id="size" onchange="generateQR()" class="mt-2 w-full p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-white">
+                <option value="300">300 × 300</option><option value="500" selected>500 × 500</option><option value="800">800 × 800</option><option value="1000">1000 × 1000</option>
+              </select>
+            </label>
+          </div>
+          <div class="bg-slate-950/60 rounded-2xl border border-slate-800 p-4 flex flex-col items-center justify-center">
+            <div class="bg-white p-3 rounded-2xl shadow-2xl w-56 h-56 sm:w-64 sm:h-64 flex items-center justify-center"><img id="qrImage" alt="Generated QR code" class="max-w-full max-h-full"></div>
+            <div class="mt-4 text-xs text-slate-500 text-center">Scan to test before downloading</div>
+          </div>
         </div>
-
-        <!-- MAIN DYNAMIC CONTAINER -->
-        <div class="w-full bg-slate-900/90 backdrop-blur-xl border border-slate-800 rounded-3xl shadow-2xl overflow-hidden p-6 md:p-8">
-            
-            <!-- STEP 1: All QR Types List -->
-            <div id="panel-step-1" class="space-y-3">
-                <p class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-4">Select QR Type (15+ Options)</p>
-                <div class="space-y-2.5 max-h-[480px] overflow-y-auto pr-1">
-                    <button onclick="selectType('url')" class="w-full flex items-center justify-between p-3.5 bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/40 rounded-2xl transition group text-left">
-                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center"><i class="fa-solid fa-link"></i></div><div><p class="text-sm font-bold text-white group-hover:text-emerald-300">Website URL</p><p class="text-xs text-slate-400">Link to any website</p></div></div><i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 text-xs"></i>
-                    </button>
-                    <button onclick="selectType('pdf')" class="w-full flex items-center justify-between p-3.5 bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/40 rounded-2xl transition group text-left">
-                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-red-500/20 text-red-400 flex items-center justify-center"><i class="fa-solid fa-file-pdf"></i></div><div><p class="text-sm font-bold text-white group-hover:text-emerald-300">PDF Document</p><p class="text-xs text-slate-400">Share downloadable PDF files</p></div></div><i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 text-xs"></i>
-                    </button>
-                    <button onclick="selectType('text')" class="w-full flex items-center justify-between p-3.5 bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/40 rounded-2xl transition group text-left">
-                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-blue-500/20 text-blue-400 flex items-center justify-center"><i class="fa-solid fa-font"></i></div><div><p class="text-sm font-bold text-white group-hover:text-emerald-300">Plain Text</p><p class="text-xs text-slate-400">Display plain text message</p></div></div><i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 text-xs"></i>
-                    </button>
-                    <button onclick="selectType('wifi')" class="w-full flex items-center justify-between p-3.5 bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/40 rounded-2xl transition group text-left">
-                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-purple-500/20 text-purple-400 flex items-center justify-center"><i class="fa-solid fa-wifi"></i></div><div><p class="text-sm font-bold text-white group-hover:text-emerald-300">WiFi Network</p><p class="text-xs text-slate-400">Connect to wireless network</p></div></div><i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 text-xs"></i>
-                    </button>
-                    <button onclick="selectType('vcard')" class="w-full flex items-center justify-between p-3.5 bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/40 rounded-2xl transition group text-left">
-                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center"><i class="fa-solid fa-address-card"></i></div><div><p class="text-sm font-bold text-white group-hover:text-emerald-300">vCard / Business Card</p><p class="text-xs text-slate-400">Share contact profile</p></div></div><i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 text-xs"></i>
-                    </button>
-                    <button onclick="selectType('whatsapp')" class="w-full flex items-center justify-between p-3.5 bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/40 rounded-2xl transition group text-left">
-                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-green-500/20 text-green-400 flex items-center justify-center"><i class="fa-brands fa-whatsapp"></i></div><div><p class="text-sm font-bold text-white group-hover:text-emerald-300">WhatsApp</p><p class="text-xs text-slate-400">Direct chat and messages</p></div></div><i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 text-xs"></i>
-                    </button>
-                    <button onclick="selectType('video')" class="w-full flex items-center justify-between p-3.5 bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/40 rounded-2xl transition group text-left">
-                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center"><i class="fa-solid fa-video"></i></div><div><p class="text-sm font-bold text-white group-hover:text-emerald-300">Video Link</p><p class="text-xs text-slate-400">Share YouTube or MP4 video</p></div></div><i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 text-xs"></i>
-                    </button>
-                    <button onclick="selectType('social')" class="w-full flex items-center justify-between p-3.5 bg-slate-950/60 hover:bg-emerald-500/10 border border-slate-800 hover:border-emerald-500/40 rounded-2xl transition group text-left">
-                        <div class="flex items-center space-x-3"><div class="w-9 h-9 rounded-xl bg-cyan-500/20 text-cyan-400 flex items-center justify-center"><i class="fa-solid fa-share-nodes"></i></div><div><p class="text-sm font-bold text-white group-hover:text-emerald-300">Social Media</p><p class="text-xs text-slate-400">Facebook, Instagram, Twitter & more</p></div></div><i class="fa-solid fa-chevron-right text-slate-600 group-hover:text-emerald-400 text-xs"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STEP 2: Add Content Panel -->
-            <div id="panel-step-2" class="hidden space-y-4">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <button onclick="goToStep(1)" class="text-xs font-semibold text-emerald-400 hover:underline flex items-center">
-                        <i class="fa-solid fa-arrow-left mr-1.5"></i> Back to types
-                    </button>
-                    <span id="badge-type" class="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">URL</span>
-                </div>
-                <div id="form-content" class="space-y-3"></div>
-                <div class="flex justify-end pt-2">
-                    <button onclick="goToStep(3)" class="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs rounded-xl shadow transition flex items-center">
-                        Next: Design QR <i class="fa-solid fa-arrow-right ml-2"></i>
-                    </button>
-                </div>
-            </div>
-
-            <!-- STEP 3: Complete Design Format & Preview Panel -->
-            <div id="panel-step-3" class="hidden space-y-6">
-                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
-                    <button onclick="goToStep(2)" class="text-xs font-semibold text-emerald-400 hover:underline flex items-center">
-                        <i class="fa-solid fa-arrow-left mr-1.5"></i> Edit content
-                    </button>
-                    <span class="text-xs font-bold text-emerald-400">Step 3: Customize & Download</span>
-                </div>
-
-                <!-- Customization Options -->
-                <div class="grid grid-cols-2 gap-4 bg-slate-950/60 p-4 border border-slate-800 rounded-2xl">
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">QR Code Color</label>
-                        <input type="color" id="qr-color" value="#059669" onchange="generateQR()" class="w-full h-10 bg-slate-950 border border-slate-800 rounded-xl cursor-pointer p-1">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-slate-400 mb-1">Background Color</label>
-                        <input type="color" id="qr-bg" value="#ffffff" onchange="generateQR()" class="w-full h-10 bg-slate-950 border border-slate-800 rounded-xl cursor-pointer p-1">
-                    </div>
-                </div>
-
-                <!-- Live Preview & 4 Download Formats -->
-                <div class="flex flex-col items-center pt-2">
-                    <div class="bg-white p-4 rounded-2xl shadow-2xl flex items-center justify-center mb-6 w-48 h-48 border border-slate-700">
-                        <img id="qr-image" src="" alt="QR Code" class="w-full h-full object-contain rounded-lg">
-                    </div>
-
-                    <!-- 4 DOWNLOAD BUTTONS -->
-                    <div class="w-full bg-slate-950/80 border border-slate-800 rounded-2xl p-4 shadow-lg space-y-3">
-                        <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider text-center">Download in 4 Formats</p>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-                            <button onclick="downloadQR('png')" class="py-2 px-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold rounded-xl transition shadow flex items-center justify-center">
-                                <i class="fa-solid fa-download mr-1.5"></i> PNG
-                            </button>
-                            <button onclick="downloadQR('jpg')" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition shadow flex items-center justify-center">
-                                <i class="fa-solid fa-file-image mr-1.5"></i> JPG
-                            </button>
-                            <button onclick="downloadQR('svg')" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition shadow flex items-center justify-center">
-                                <i class="fa-solid fa-code mr-1.5"></i> SVG
-                            </button>
-                            <button onclick="downloadQR('webp')" class="py-2 px-3 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold rounded-xl transition shadow flex items-center justify-center">
-                                <i class="fa-solid fa-image mr-1.5"></i> WEBP
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="mt-4 bg-slate-950/70 border border-slate-800 rounded-2xl p-4">
+          <div class="flex items-center justify-between mb-3"><div class="text-xs uppercase tracking-widest text-slate-400 font-bold">Download QR</div><div class="text-[10px] text-emerald-400">Works on PC & mobile</div></div>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+            <button onclick="downloadQR('png')" class="py-3 rounded-xl bg-violet-600 hover:bg-violet-500 text-xs font-bold"><i class="fa-solid fa-download mr-1"></i> PNG</button>
+            <button onclick="downloadQR('jpg')" class="py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold">JPG</button>
+            <button onclick="downloadQR('svg')" class="py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold">SVG</button>
+            <button onclick="downloadQR('webp')" class="py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold">WEBP</button>
+          </div>
         </div>
-
-        <!-- Visual Guide for New Users -->
-        <div class="w-full bg-slate-900/90 border border-slate-800 rounded-3xl p-6 md:p-8 space-y-4 shadow-xl">
-            <h3 class="text-sm font-bold uppercase tracking-wider text-emerald-400">How to create & design QR codes easily</h3>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
-                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-2xl space-y-2">
-                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center font-bold justify-center text-xs">1</div>
-                    <h4 class="text-xs font-bold text-white">Select Your Content</h4>
-                    <p class="text-[11px] text-slate-400">Choose from website URL, WhatsApp, WiFi, vCard, or social links from step 1 list.</p>
-                </div>
-                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-2xl space-y-2">
-                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center font-bold justify-center text-xs">2</div>
-                    <h4 class="text-xs font-bold text-white">Customize Design</h4>
-                    <p class="text-[11px] text-slate-400">Pick custom foreground and background colors to match your brand style.</p>
-                </div>
-                <div class="bg-slate-950/60 border border-slate-800 p-4 rounded-2xl space-y-2">
-                    <div class="w-8 h-8 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center font-bold justify-center text-xs">3</div>
-                    <h4 class="text-xs font-bold text-white">Download Instantly</h4>
-                    <p class="text-[11px] text-slate-400">Save your high-resolution QR code in PNG, JPG, SVG, or WEBP format for print or digital use.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- 📢 AD SLOT 2: Footer Banner -->
-        <div class="w-full bg-slate-900/80 backdrop-blur-md border border-slate-800/80 rounded-xl p-4 text-center text-slate-400 flex flex-col items-center justify-center min-h-[90px] shadow-lg">
-            <span class="text-[10px] uppercase tracking-widest font-bold mb-1 text-emerald-400">Advertisement Slot 2</span>
-            <script type="text/javascript" src="//pl30981401.profitableratecpmnetwork.com/e7/6d/b9/e76db94628554e5cb994792cfd286dcc.js"></script>
-        </div>
-
-        <!-- Professional Footer -->
-        <footer class="w-full border-t border-slate-800/80 pt-6 pb-4 flex flex-col md:flex-row items-center justify-between text-xs text-slate-500 gap-4 text-center md:text-left">
-            <p>&copy; 2026 Pro QR Generator. All rights reserved.</p>
-            <div class="flex flex-wrap justify-center gap-6">
-                <a href="#" class="hover:text-emerald-400 transition">Terms & Conditions</a>
-                <a href="#" class="hover:text-emerald-400 transition">Privacy Policy</a>
-                <a href="#" class="hover:text-emerald-400 transition">Contact Us</a>
-            </div>
-        </footer>
-
+      </section>
     </div>
 
-    <!-- JavaScript Navigation & QR Logic -->
-    <script>
-        let currentType = 'url';
-        let currentStep = 1;
+    <aside class="space-y-6">
+      <div class="glass rounded-3xl p-5">
+        <div class="flex items-center justify-between mb-4"><div><div class="text-xs text-cyan-400 font-bold uppercase tracking-widest">Quick create</div><h2 class="font-black text-xl mt-1">Pick a popular QR</h2></div><i class="fa-solid fa-wand-magic-sparkles text-violet-400"></i></div>
+        <div class="grid grid-cols-2 gap-2" id="quickTypes"></div>
+      </div>
+      <div class="glass rounded-3xl p-5">
+        <div class="text-xs text-emerald-400 font-bold uppercase tracking-widest mb-2">Advertisement Slot 2</div>
+        <div class="min-h-[220px] rounded-2xl border border-dashed border-slate-700 flex items-center justify-center text-xs text-slate-600 text-center p-4">Ad space<br><span class="text-[10px]">Replace this area with your ad code</span></div>
+      </div>
+    </aside>
+  </section>
 
-        function goToStep(step) {
-            currentStep = step;
-            document.getElementById('panel-step-1').classList.add('hidden');
-            document.getElementById('panel-step-2').classList.add('hidden');
-            document.getElementById('panel-step-3').classList.add('hidden');
-            document.getElementById(`panel-step-${step}`).classList.remove('hidden');
+  <section id="features" class="glass rounded-3xl p-5 sm:p-7">
+    <div class="flex items-center justify-between mb-5"><div><div class="text-xs text-violet-400 font-bold uppercase tracking-widest">Built for simplicity</div><h2 class="text-xl sm:text-2xl font-black mt-1">Everything you need in one place</h2></div></div>
+    <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+      <div class="bg-slate-950/50 rounded-2xl p-4 border border-slate-800"><i class="fa-solid fa-palette text-violet-400"></i><h3 class="font-bold text-sm mt-3">More colors</h3><p class="text-xs text-slate-500 mt-1">Pick custom colors or ready palettes.</p></div>
+      <div class="bg-slate-950/50 rounded-2xl p-4 border border-slate-800"><i class="fa-solid fa-mobile-screen text-cyan-400"></i><h3 class="font-bold text-sm mt-3">Mobile ready</h3><p class="text-xs text-slate-500 mt-1">Responsive controls on every screen.</p></div>
+      <div class="bg-slate-950/50 rounded-2xl p-4 border border-slate-800"><i class="fa-solid fa-file-arrow-up text-emerald-400"></i><h3 class="font-bold text-sm mt-3">File upload</h3><p class="text-xs text-slate-500 mt-1">Select a file and create a share-link QR.</p></div>
+      <div class="bg-slate-950/50 rounded-2xl p-4 border border-slate-800"><i class="fa-solid fa-download text-amber-400"></i><h3 class="font-bold text-sm mt-3">Easy download</h3><p class="text-xs text-slate-500 mt-1">Download your QR from PC or mobile.</p></div>
+    </div>
+  </section>
 
-            for (let i = 1; i <= 3; i++) {
-                const ind = document.getElementById(`step-ind-${i}`);
-                if (i === step) {
-                    ind.className = "w-7 h-7 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs shadow-lg";
-                } else if (i < step) {
-                    ind.className = "w-7 h-7 rounded-full bg-emerald-600/40 text-emerald-300 font-bold flex items-center justify-center text-xs";
-                } else {
-                    ind.className = "w-7 h-7 rounded-full bg-slate-800 text-slate-400 font-bold flex items-center justify-center text-xs";
-                }
-            }
-            if (step === 3) generateQR();
-        }
+  <section id="history" class="glass rounded-3xl p-5 sm:p-7">
+    <div class="flex items-center justify-between gap-3 mb-4"><div><div class="text-xs text-cyan-400 font-bold uppercase tracking-widest">Local history</div><h2 class="text-xl font-black mt-1">My QR Codes</h2></div><button onclick="clearHistory()" class="text-xs text-slate-500 hover:text-red-400">Clear history</button></div>
+    <div id="historyList" class="space-y-2"></div>
+  </section>
 
-        function selectType(type) {
-            currentType = type;
-            document.getElementById('badge-type').innerText = type.toUpperCase();
-            renderForm();
-            goToStep(2);
-        }
+  <div class="glass rounded-2xl min-h-[90px] flex flex-col items-center justify-center text-center">
+    <span class="text-[10px] uppercase tracking-[.25em] text-cyan-400 font-bold mb-1">Advertisement Slot 3</span>
+    <span class="text-xs text-slate-600">Your ad can appear here</span>
+  </div>
+</main>
 
-        function renderForm() {
-            const container = document.getElementById('form-content');
-            if (currentType === 'url') {
-                container.innerHTML = `<div><label class="block text-xs font-medium text-slate-400 mb-1">Website URL</label><input type="url" id="in-url" placeholder="https://example.com" value="https://google.com" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-emerald-500"></div>`;
-            } else if (currentType === 'pdf') {
-                container.innerHTML = `<div><label class="block text-xs font-medium text-slate-400 mb-1">PDF File URL</label><input type="url" id="in-pdf" placeholder="https://example.com/document.pdf" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-emerald-500"></div>`;
-            } else if (currentType === 'text') {
-                container.innerHTML = `<div><label class="block text-xs font-medium text-slate-400 mb-1">Plain Text</label><textarea id="in-text" rows="3" placeholder="Enter text..." oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200 focus:outline-none focus:border-emerald-500">Hello World!</textarea></div>`;
-            } else if (currentType === 'wifi') {
-                container.innerHTML = `<div class="space-y-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">Network SSID</label><input type="text" id="wifi-ssid" placeholder="Home_WiFi" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Password</label><input type="text" id="wifi-pass" placeholder="Password123" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200"></div></div>`;
-            } else if (currentType === 'vcard') {
-                container.innerHTML = `<div class="grid grid-cols-2 gap-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">Full Name</label><input type="text" id="vc-name" placeholder="John Doe" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Phone</label><input type="tel" id="vc-phone" placeholder="+12345678" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200"></div></div>`;
-            } else if (currentType === 'whatsapp') {
-                container.innerHTML = `<div class="space-y-3"><div><label class="block text-xs font-medium text-slate-400 mb-1">WhatsApp Number</label><input type="tel" id="wa-num" placeholder="+923001234567" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200"></div><div><label class="block text-xs font-medium text-slate-400 mb-1">Message</label><input type="text" id="wa-msg" placeholder="Hi!" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200"></div></div>`;
-            } else if (currentType === 'video') {
-                container.innerHTML = `<div><label class="block text-xs font-medium text-slate-400 mb-1">Video URL (YouTube/MP4)</label><input type="url" id="in-vid" placeholder="https://youtube.com/watch?v=..." oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200"></div>`;
-            } else if (currentType === 'social') {
-                container.innerHTML = `<div><label class="block text-xs font-medium text-slate-400 mb-1">Social Profile Link</label><input type="url" id="in-soc" placeholder="https://instagram.com/username" oninput="generateQR()" class="w-full px-3.5 py-2.5 bg-slate-950 border border-slate-800 rounded-xl text-sm text-slate-200"></div>`;
-            }
-        }
+<footer class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 py-8 text-xs text-slate-600 flex flex-col sm:flex-row gap-3 justify-between">
+  <span>© 2026 Pro QR Generator</span><span>Fast • Simple • Responsive</span>
+</footer>
 
-        function getQRCodeData() {
-            let data = "https://google.com";
-            if (currentType === 'url') data = document.getElementById("in-url")?.value || data;
-            else if (currentType === 'pdf') data = document.getElementById("in-pdf")?.value || "https://example.com/file.pdf";
-            else if (currentType === 'text') data = document.getElementById("in-text")?.value || "Hello!";
-            else if (currentType === 'wifi') {
-                const s = document.getElementById("wifi-ssid")?.value || "";
-                const p = document.getElementById("wifi-pass")?.value || "";
-                data = `WIFI:S:${s};T:WPA;P:${p};;`;
-            } else if (currentType === 'vcard') {
-                const n = document.getElementById("vc-name")?.value || "";
-                const ph = document.getElementById("vc-phone")?.value || "";
-                data = `BEGIN:VCARD\nVERSION:3.0\nFN:${n}\nTEL:${ph}\nEND:VCARD`;
-            } else if (currentType === 'whatsapp') {
-                const num = document.getElementById("wa-num")?.value || "";
-                const msg = encodeURIComponent(document.getElementById("wa-msg")?.value || "");
-                data = `https://wa.me/${num}?text=${msg}`;
-            } else if (currentType === 'video') data = document.getElementById("in-vid")?.value || "https://youtube.com";
-            else if (currentType === 'social') data = document.getElementById("in-soc")?.value || "https://instagram.com";
-            return data;
-        }
+<input id="filePicker" type="file" class="hidden" onchange="handleFile(event)">
 
-        function generateQR() {
-            const textData = encodeURIComponent(getQRCodeData());
-            const fg = document.getElementById("qr-color").value.replace('#', '');
-            const bg = document.getElementById("qr-bg").value.replace('#', '');
-            const apiUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${textData}&color=${fg}&bgcolor=${bg}`;
-            document.getElementById("qr-image").src = apiUrl;
-        }
+<script>
+const types=[
+ {id:'url',name:'Website URL',desc:'Link to any website',icon:'fa-link',c:'emerald'},
+ {id:'pdf',name:'PDF Document',desc:'Share a PDF URL',icon:'fa-file-pdf',c:'red'},
+ {id:'file',name:'Files',desc:'Upload and create a file-link QR',icon:'fa-file-arrow-up',c:'cyan'},
+ {id:'text',name:'Plain Text',desc:'Share a text message',icon:'fa-font',c:'blue'},
+ {id:'wifi',name:'WiFi Network',desc:'Connect to wireless network',icon:'fa-wifi',c:'violet'},
+ {id:'vcard',name:'vCard',desc:'Share contact details',icon:'fa-address-card',c:'pink'},
+ {id:'whatsapp',name:'WhatsApp',desc:'Open a chat with message',icon:'fa-whatsapp',c:'green',brand:true},
+ {id:'video',name:'Video Link',desc:'YouTube or video URL',icon:'fa-video',c:'amber'},
+ {id:'social',name:'Social Media',desc:'Share a profile link',icon:'fa-share-nodes',c:'cyan'},
+ {id:'email',name:'Email',desc:'Compose an email',icon:'fa-envelope',c:'sky'},
+ {id:'phone',name:'Phone',desc:'Call a number',icon:'fa-phone',c:'lime'},
+ {id:'sms',name:'SMS',desc:'Pre-filled text message',icon:'fa-comment-sms',c:'orange'},
+ {id:'location',name:'Location',desc:'Open a map location',icon:'fa-location-dot',c:'rose'},
+ {id:'calendar',name:'Event',desc:'Share event details',icon:'fa-calendar-days',c:'indigo'},
+ {id:'app',name:'App Link',desc:'Share an app URL',icon:'fa-mobile-screen-button',c:'fuchsia'}
+];
+let currentType='url', lastData='https://example.com';
 
-        async function downloadQR(format) {
-            const textData = encodeURIComponent(getQRCodeData());
-            const fg = document.getElementById("qr-color").value.replace('#', '');
-            const bg = document.getElementById("qr-bg").value.replace('#', '');
-            const downloadUrl = `https://api.qrserver.com/v1/create-qr-code/?size=500x500&data=${textData}&color=${fg}&bgcolor=${bg}&format=${format}`;
+function esc(s){return String(s||'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));}
+function scrollToId(id){document.getElementById(id)?.scrollIntoView({behavior:'smooth'});}
+function iconClass(t){return t.brand?'fa-brands':'fa-solid';}
 
-            try {
-                const response = await fetch(downloadUrl);
-                const blob = await response.blob();
-                const blobUrl = URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = blobUrl;
-                a.download = `QRCode.${format}`;
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-                URL.revokeObjectURL(blobUrl);
-            } catch (e) {
-                window.open(downloadUrl, '_blank');
-            }
-        }
-
-        window.onload = () => {
-            renderForm();
-            generateQR();
-        };
-    </script>
-
-    <!-- POPUNDER SCRIPT -->
-    <script type="text/javascript" src="//plv.itchiefs.com/xxx/invoke.js"></script>
-
+function renderTypes(){
+ const grid=document.getElementById('typeGrid');
+ grid.innerHTML=types.map(t=>`<button data-type="${t.id}" onclick="selectType('${t.id}')" class="type-btn w-full text-left p-3 rounded-2xl bg-slate-950/50 border border-slate-800 hover:border-violet-500/50 hover:bg-violet-500/5 transition flex items-center gap-3">
+ <span class="w-10 h-10 rounded-xl bg-slate-900 flex items-center justify-center text-violet-400"><i class="${iconClass(t)} ${t.icon}"></i></span>
+ <span class="min-w-0"><b class="block text-sm">${t.name}</b><small class="text-xs text-slate-500">${t.desc}</small></span><i class="fa-solid fa-chevron-right ml-auto text-slate-700 text-xs"></i></button>`).join('');
+ document.getElementById('quickTypes').innerHTML=types.slice(0,8).map(t=>`<button onclick="selectType('${t.id}')" class="p-3 rounded-xl border border-slate-800 bg-slate-950/50 hover:border-violet-500/50 text-left"><i class="${iconClass(t)} ${t.icon} text-violet-400"></i><span class="block text-xs font-bold mt-2">${t.name}</span></button>`).join('');
+}
+function input(id,label,placeholder,type='text',extra=''){return `<label class="block text-xs font-semibold text-slate-400">${label}<input id="${id}" type="${type}" placeholder="${placeholder}" ${extra} class="mt-2 w-full px-3.5 py-3 rounded-xl bg-slate-950 border border-slate-800 focus:border-violet-500 outline-none text-sm"></label>`;}
+function renderForm(){
+ const f=document.getElementById('contentForm'); document.getElementById('typeBadge').textContent=currentType;
+ let h='';
+ if(currentType==='url'||currentType==='pdf'||currentType==='video'||currentType==='social'||currentType==='app') h=input('mainInput',types.find(x=>x.id===currentType).name,'https://example.com','url','oninput="generateQR()"');
+ else if(currentType==='text') h=`<label class="block text-xs font-semibold text-slate-400">Plain text<textarea id="mainInput" rows="5" placeholder="Enter your message..." oninput="generateQR()" class="mt-2 w-full px-3.5 py-3 rounded-xl bg-slate-950 border border-slate-800 focus:border-violet-500 outline-none text-sm"></textarea></label>`;
+ else if(currentType==='wifi') h=input('wifiS','Network name','Home WiFi')+input('wifiP','Password','Password123')+`<label class="text-xs text-slate-400 block">Security<select id="wifiT" onchange="generateQR()" class="mt-2 w-full p-3 rounded-xl bg-slate-950 border border-slate-800"><option>WPA</option><option>WEP</option><option>nopass</option></select></label>`;
+ else if(currentType==='vcard') h=`<div class="grid sm:grid-cols-2 gap-3">${input('vcName','Full name','John Doe')}${input('vcPhone','Phone','+923001234567','tel')}${input('vcEmail','Email','john@example.com','email')}${input('vcOrg','Organization','Company')}</div>`;
+ else if(currentType==='whatsapp') h=input('waNum','WhatsApp number','923001234567','tel')+input('waMsg','Message','Hello!','text');
+ else if(currentType==='email') h=input('emailTo','Email address','name@example.com','email')+input('emailSub','Subject','Hello!')+input('emailBody','Message','Your message');
+ else if(currentType==='phone') h=input('phone','Phone number','+923001234567','tel');
+ else if(currentType==='sms') h=input('smsNum','Phone number','+923001234567','tel')+input('smsMsg','Message','Hello!');
+ else if(currentType==='location') h=`<div class="grid sm:grid-cols-2 gap-3">${input('lat','Latitude','31.5204','number','step="any"')}${input('lng','Longitude','74.3587','number','step="any"')}</div>`;
+ else if(currentType==='calendar') h=`<div class="grid sm:grid-cols-2 gap-3">${input('evTitle','Event title','My Event')}${input('evDate','Date','2026-08-23','date')}</div>${input('evPlace','Location','Lahore')}`;
+ else if(currentType==='file') h=`<div class="rounded-2xl border border-dashed border-slate-700 bg-slate-950/50 p-6 text-center"><i class="fa-solid fa-cloud-arrow-up text-3xl text-cyan-400"></i><h3 class="font-bold mt-3">Upload a file</h3><p class="text-xs text-slate-500 mt-1">For a QR to share a file, the file needs a publicly reachable URL.</p><button type="button" onclick="document.getElementById('filePicker').click()" class="mt-4 px-5 py-2.5 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-sm font-bold">Choose file</button><div id="fileName" class="text-xs text-slate-500 mt-3"></div><div class="mt-4">${input('fileUrl','Or paste the file’s public URL','https://example.com/file.pdf','url','oninput="generateQR()"')}</div></div>`;
+ f.innerHTML=h;
+ f.querySelectorAll('input,textarea,select').forEach(el=>el.addEventListener('input',generateQR));
+}
+function selectType(t){currentType=t;document.querySelectorAll('.type-btn').forEach(b=>b.classList.toggle('type-active',b.dataset.type===t));renderForm();showSection(2);generateQR();}
+function showSection(n){
+ [1,2,3].forEach(i=>document.getElementById('section'+i).classList.toggle('hidden',i!==n));
+ [1,2,3].forEach(i=>document.getElementById('step'+i).className='step rounded-xl p-3 text-left '+(i===n?'bg-violet-500/10 border border-violet-500/40':'bg-slate-950/50 border border-slate-800'));
+ if(n===3)generateQR();
+}
+function val(id,def=''){return document.getElementById(id)?.value||def;}
+function getData(){
+ switch(currentType){
+  case'url':case'pdf':case'video':case'social':case'app':case'file':return val(currentType==='file'?'fileUrl':'mainInput','https://example.com');
+  case'text':return val('mainInput','Hello from Pro QR Generator');
+  case'wifi':return `WIFI:T:${val('wifiT','WPA')};S:${val('wifiS')};P:${val('wifiP')};;`;
+  case'vcard':return `BEGIN:VCARD\nVERSION:3.0\nFN:${val('vcName')}\nTEL:${val('vcPhone')}\nEMAIL:${val('vcEmail')}\nORG:${val('vcOrg')}\nEND:VCARD`;
+  case'whatsapp':return `https://wa.me/${val('waNum').replace(/\D/g,'')}?text=${encodeURIComponent(val('waMsg'))}`;
+  case'email':return `mailto:${val('emailTo')}?subject=${encodeURIComponent(val('emailSub'))}&body=${encodeURIComponent(val('emailBody'))}`;
+  case'phone':return `tel:${val('phone')}`;
+  case'sms':return `SMSTO:${val('smsNum')}:${val('smsMsg')}`;
+  case'location':return `geo:${val('lat','0')},${val('lng','0')}`;
+  case'calendar':return `BEGIN:VEVENT\nSUMMARY:${val('evTitle')}\nDTSTART:${val('evDate').replaceAll('-','')}\nLOCATION:${val('evPlace')}\nEND:VEVENT`;
+  default:return'https://example.com';
+ }
+}
+function qrUrl(format='png',size=null){
+ const s=size||val('size','500'), fg=val('fg','#7c3aed').replace('#',''), bg=val('bg','#ffffff').replace('#','');
+ return `https://api.qrserver.com/v1/create-qr-code/?size=${s}x${s}&data=${encodeURIComponent(lastData)}&color=${fg}&bgcolor=${bg}&format=${format}`;
+}
+function generateQR(){
+ lastData=getData(); const img=document.getElementById('qrImage'); if(img)img.src=qrUrl('png',val('size','500')); saveHistory(lastData);
+}
+async function downloadQR(format){
+ const url=qrUrl(format,val('size','1000'));
+ try{
+  const r=await fetch(url,{mode:'cors'}); if(!r.ok)throw Error();
+  const blob=await r.blob(), u=URL.createObjectURL(blob), a=document.createElement('a');
+  a.href=u;a.download=`pro-qr-code.${format}`;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1000);
+ }catch(e){window.open(url,'_blank');}
+}
+function handleFile(e){
+ const file=e.target.files?.[0]; if(!file)return;
+ document.getElementById('fileName').textContent=`Selected: ${file.name} (${Math.ceil(file.size/1024)} KB)`;
+ const urlInput=document.getElementById('fileUrl'); if(urlInput){urlInput.value='';}
+}
+const palettes=[['#7c3aed','#ffffff'],['#06b6d4','#ffffff'],['#10b981','#ffffff'],['#ef4444','#ffffff'],['#f59e0b','#ffffff'],['#0f172a','#ffffff'],['#ec4899','#ffffff'],['#2563eb','#ffffff'],['#111827','#f8fafc'],['#ffffff','#111827']];
+document.getElementById('palettes').innerHTML=palettes.map((p,i)=>`<button title="Palette ${i+1}" onclick="setPalette('${p[0]}','${p[1]}')" class="w-8 h-8 rounded-full border border-slate-700" style="background:linear-gradient(135deg,${p[0]} 50%,${p[1]} 50%)"></button>`).join('');
+function setPalette(f,b){document.getElementById('fg').value=f;document.getElementById('bg').value=b;generateQR();}
+function saveHistory(data){
+ const key='proQRHistory', old=JSON.parse(localStorage.getItem(key)||'[]');
+ const item={type:currentType,data,time:new Date().toLocaleString()};
+ const filtered=old.filter(x=>x.data!==data); filtered.unshift(item); localStorage.setItem(key,JSON.stringify(filtered.slice(0,8))); renderHistory();
+}
+function renderHistory(){
+ const h=document.getElementById('historyList'), arr=JSON.parse(localStorage.getItem('proQRHistory')||'[]');
+ h.innerHTML=arr.length?arr.map((x,i)=>`<div class="flex items-center gap-3 p-3 rounded-xl bg-slate-950/50 border border-slate-800"><div class="w-9 h-9 rounded-lg bg-violet-500/10 text-violet-400 flex items-center justify-center"><i class="fa-solid fa-qrcode"></i></div><div class="min-w-0 flex-1"><b class="text-xs block truncate">${esc(x.data)}</b><span class="text-[10px] text-slate-600">${esc(x.type)} • ${esc(x.time)}</span></div><button onclick="reuseHistory(${i})" class="text-xs text-violet-400 font-bold">Use</button></div>`).join(''):'<div class="text-sm text-slate-600 text-center py-5">Your recent QR codes will appear here.</div>';
+}
+function reuseHistory(i){const arr=JSON.parse(localStorage.getItem('proQRHistory')||'[]'),x=arr[i];if(!x)return;currentType=x.type;renderForm();setTimeout(()=>{const id=['url','pdf','video','social','app'].includes(x.type)?'mainInput':x.type==='file'?'fileUrl':null;if(id&&document.getElementById(id))document.getElementById(id).value=x.data;showSection(3);generateQR();},0);}
+function clearHistory(){localStorage.removeItem('proQRHistory');renderHistory();}
+renderTypes();renderHistory();renderForm();generateQR();
+</script>
 </body>
 </html>
